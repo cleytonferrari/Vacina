@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using RepositorioCSV;
 using WebMVC.Models;
 
 namespace WebMVC.Controllers
@@ -20,7 +21,10 @@ namespace WebMVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var repositorio = new RepositorioCSV.LerCSV<ViewModelPaciente>();
+            var doc = repositorio.Ler("D:\\core\\Vacina\\src\\Repositorio\\CSV\\1.csv");
+
+            return View(doc);
         }
 
         public IActionResult Privacy()

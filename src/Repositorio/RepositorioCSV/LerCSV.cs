@@ -1,15 +1,26 @@
-﻿using System;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
 
 namespace RepositorioCSV
 {
     public class LerCSV<T> where T : class
     {
-        public IEnumerable<T> Ler(string csv)
+        public IEnumerable<T> Ler(string path)
         {
-            if (string.IsNullOrEmpty(csv)) return null;
-            var configuracaoCsv = new CsvConfiguration { Delimiter = ";" };
-            var csvReader = new CsvReader(new StringReader(csv), configuracaoCsv);
-            return csvReader.GetRecords<T>();
+
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = ";" };
+
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, config))
+            {
+                 return csv.GetRecords<T>().ToList();    
+            }
+
         }
     }
 }
