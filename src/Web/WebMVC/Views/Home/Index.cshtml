@@ -2,15 +2,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-@using RepositorioCSV
-@model List<ViewModelPaciente>
+@using Dominio
+@model List<Paciente>
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     @foreach (var paciente in Model)
     {
         <div>
-            <p>@paciente.Nome</p>
+            <p>@paciente.Nome | @paciente.DataNascimento | @paciente.Sexo</p>
         </div>
     }
 </div>

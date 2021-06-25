@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Dominio\Dominio\Dominio.csproj" />
     <PackageReference Include="CsvHelper" Version="27.1.1" />
   </ItemGroup>
 

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Repositorio\RepositorioCSV\RepositorioCSV.csproj" />
+    <ProjectReference Include="..\..\Dominio\Dominio\Dominio.csproj" />
   </ItemGroup>
 
 </Project>

@@ -12,6 +12,7 @@ namespace WebMVC.Controllers
 {
     public class HomeController : Controller
     {
+        private const string Path = @"..\..\Repositorio\CSV\1.csv";
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -21,8 +22,8 @@ namespace WebMVC.Controllers
 
         public IActionResult Index()
         {
-            var repositorio = new RepositorioCSV.LerCSV<ViewModelPaciente>();
-            var doc = repositorio.Ler("D:\\core\\Vacina\\src\\Repositorio\\CSV\\1.csv");
+            var repositorio = new PacienteRepositorio();
+            var doc = repositorio.Get(Path);
 
             return View(doc);
         }
