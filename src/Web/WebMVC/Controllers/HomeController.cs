@@ -12,7 +12,7 @@ namespace WebMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private const string Path = @"..\..\Repositorio\CSV\1.csv";
+        private const string Path = @"wwwroot/CSV/1.csv";
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
