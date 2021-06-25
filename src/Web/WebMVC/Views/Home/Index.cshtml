@@ -1,16 +1,31 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Vacinados";
 }
 
 @using Dominio
 @model List<Paciente>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    @foreach (var paciente in Model)
-    {
-        <div>
-            <p>@paciente.Nome | @paciente.DataNascimento | @paciente.Sexo</p>
-        </div>
-    }
+    <h1 class="display-4">Vacinados</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Sexo</th>
+                <th scope="col">Data Nascimento</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var paciente in Model)
+            {
+                <tr>
+                    <th scope="row">1</th>
+                    <td>@paciente.Nome</td>
+                    <td>@paciente.Sexo</td>
+                    <td>@paciente.DataNascimento</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
