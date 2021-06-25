@@ -3,7 +3,7 @@
 }
 
 @using Dominio
-@model List<Paciente>
+@model List<Dose>
 
 <div class="text-center">
     <h1 class="display-4">Vacinados</h1>
@@ -14,16 +14,28 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Sexo</th>
                 <th scope="col">Data Nascimento</th>
+                <th scope="col">Fabricante</th>
+                <th scope="col">Grupo Atendimento</th>
+                <th scope="col">Lote</th>
+                <th scope="col">Nº Dose</th>
+                <th scope="col">Data Aplicação</th>
+                <th scope="col">CNES</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var paciente in Model)
+            @foreach (var dose in Model)
             {
                 <tr>
-                    <th scope="row">1</th>
-                    <td>@paciente.Nome</td>
-                    <td>@paciente.Sexo</td>
-                    <td>@paciente.DataNascimento</td>
+                    <th scope="row">#</th>
+                    <td>@dose.Paciente.Nome</td>
+                    <td>@dose.Paciente.Sexo</td>
+                    <td>@dose.Paciente.DataNascimento.ToString("d")</td>
+                    <td>@dose.Fabricante</td>
+                    <td>@dose.GrupoAtendimento</td>
+                    <td>@dose.Lote</td>
+                    <td>@dose.NumeroDose</td>
+                    <td>@dose.DataAplicacao.ToString("d")</td>
+                    <td>@dose.CNES</td>
                 </tr>
             }
         </tbody>

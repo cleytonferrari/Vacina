@@ -22,7 +22,7 @@ namespace WebMVC.Controllers
 
         public IActionResult Index()
         {
-            var repositorio = new PacienteRepositorio();
+            var repositorio = new DoseRepositorio();
             var doc = repositorio.Get(Path);
 
             return View(doc);
