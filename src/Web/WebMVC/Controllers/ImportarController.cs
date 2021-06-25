@@ -38,10 +38,10 @@ namespace WebMVC.Controllers
             {
                 var servicoArquivo = new ServicoArquivo(_env);
                 var fileName =  servicoArquivo.Upload(vm.Arquivo);
-                TempData["message"] = "Successfully Added";
+                ViewBag.Mensagem = "Arquivo adicionado!";
             }
             
-            return RedirectToAction("Index");
+            return View();
         }
 
 
