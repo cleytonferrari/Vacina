@@ -1,0 +1,17 @@
+@model ImportarViewModel;
+
+@{
+    ViewData["Title"] = "Importar Dados";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form class="col-xs-12" method="post" action="" enctype="multipart/form-data">
+
+     <div class="form-group">
+        <input type="file" class="form-control" name="Arquivo" />
+     </div>
+
+     <div class="form-group">
+        <button type="submit" class="btn btn-primary col-xs-12">Adicionar</button>
+     </div>
+  </form>
