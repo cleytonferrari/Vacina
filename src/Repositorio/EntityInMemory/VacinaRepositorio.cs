@@ -8,23 +8,21 @@ namespace EntityInMemory
     public class VacinaRepositorio : DbContext
     {
 
+        private VacinaContext _context;
+        public VacinaRepositorio()
+        {
+            var options = new DbContextOptionsBuilder<VacinaContext>().UseInMemoryDatabase(databaseName: "Test").Options;
+            _context = new VacinaContext(options);
+        }
         public void Salvar(Dose dose)
         {
-            var options = new DbContextOptionsBuilder<VacinaContext>()
-            .UseInMemoryDatabase(databaseName: "Test").Options;
-            var context = new VacinaContext(options);
-
-            context.Doses.Add(dose);
-            context.SaveChanges();
+            _context.Doses.Add(dose);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Dose> GetAll()
         {
-            var options = new DbContextOptionsBuilder<VacinaContext>()
-            .UseInMemoryDatabase(databaseName: "Test").Options;
-            var context = new VacinaContext(options);
-
-            return context.Doses.Include(u => u.Paciente);
+            return _context.Doses.Include(u => u.Paciente);
         }
     }
 }
