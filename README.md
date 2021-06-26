@@ -1,6 +1,6 @@
 # Vacina
 
-Aplicativo para criar o vacinômetro, baseados nos arquivos exportados do [e-SUS Notifica](https://notifica.saude.gov.br/) em formato .CSV.
+Aplicativo para criar o vacinômetro, baseado nos arquivos exportados do [eSUS Notifica](https://notifica.saude.gov.br/) em formato *.csv, atendendo assim a transparência da divulgação das pessoas vacinadas no município.
 
 
 ## Começando
