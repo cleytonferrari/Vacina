@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EntityInMemory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using WebMVC.Servicos;
 
 namespace WebMVC.Controllers
 {
+    [Authorize]
     public class ImportarController : Controller
     {
 
@@ -26,7 +28,11 @@ namespace WebMVC.Controllers
             _logger = logger;
             _env = env;
         }
-
+        
+        public IActionResult Importar()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             return View();

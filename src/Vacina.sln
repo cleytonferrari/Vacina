@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMVC", "Web\WebMVC\WebMVC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RepositorioCSV", "Repositorio\RepositorioCSV\RepositorioCSV.csproj", "{2B72FA52-5072-451F-B39D-B8FE886CD814}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityInMemory", "Repositorio\EntityInMemory\EntityInMemory.csproj", "{BBCFF5A2-B51A-400E-8ACF-F6A6A55C6003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2B72FA52-5072-451F-B39D-B8FE886CD814}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B72FA52-5072-451F-B39D-B8FE886CD814}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B72FA52-5072-451F-B39D-B8FE886CD814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBCFF5A2-B51A-400E-8ACF-F6A6A55C6003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBCFF5A2-B51A-400E-8ACF-F6A6A55C6003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBCFF5A2-B51A-400E-8ACF-F6A6A55C6003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBCFF5A2-B51A-400E-8ACF-F6A6A55C6003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

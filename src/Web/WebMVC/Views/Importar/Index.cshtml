@@ -1,25 +1,17 @@
-@model ImportarViewModel;
+﻿<div class="text-center">
+    <div class="jumbotron">
+        <h1 class="display-4">Bem-Vindo! @User.Identity.Name</h1>
+        <p class="lead">Aqui você pode alimentar com dados o vacinômetro!</p>
+        <hr class="my-4">
+        <p>Atualmente, só é possível alimentar o vacinômetro com arquivos exportado do <a href="https://notifica.saude.gov.br/">eSUS Notifica</a>.</p>
+        <p>O arquivo <b>*.csv</b> gerado pelo <b>eSUS Notifica</b> deve possuir os seguintes campos: </p>
+        <pre>
+nome
+data
+        </pre>
 
-@{
-   ViewData["Title"] = "Importar Dados";
-}
-<h1>@ViewData["Title"]</h1>
-
-@if (!String.IsNullOrEmpty(ViewBag.Mensagem))
-{
-   <div class="alert alert-success" role="alert">
-      @ViewBag.Mensagem
-   </div>
-}
-
-<form class="col-xs-12" method="post" action="" enctype="multipart/form-data">
-
-   <div class="form-group">
-      <label for="exampleFormControlFile1">Escolha o arquivo *.csv para importação.</label>
-      <input type="file" class="form-control-file" name="Arquivo" />
-   </div>
-
-   <div class="form-group">
-      <button type="submit" class="btn btn-primary col-xs-12">Adicionar</button>
-   </div>
-</form>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Importar" asp-action="Importar" role="button">Importar Dados</a>
+        </p>
+    </div>
+</div>
