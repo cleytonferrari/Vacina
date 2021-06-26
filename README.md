@@ -8,9 +8,21 @@ Aplicativo para criar o vacinômetro, baseado nos arquivos exportados do [eSUS N
 Veja se você tem [instalado](https://docs.docker.com/docker-for-windows/install/) docker. Após isto, você pode rodar o seguinte comando na pasta **/src/** para iniciar com o aplicativo `Vacina` imediatamente.
 
 ```powershell
-docker-compose build
-docker-compose up
+docker build . -t vacina
+docker run -d -p 8080:80 vacina
 ```
+
+*Pronto! Agora basta acessar o endereço em seu navegador http://localhost:8080/*
+
+## Container Docker
+Esta disponível uma [imagem docker](https://hub.docker.com/r/cleytonferrari/appvacina) do projeto no Docker Hub, se você tem [instalado](https://docs.docker.com/docker-for-windows/install/) docker. Execute o comando asseguir no consolole do seu docker.
+
+```powershell
+docker run -d -p 8080:80 cleytonferrari/appvacina
+```
+
+*Pronto! Agora basta acessar o endereço em seu navegador http://localhost:8080/*
+
 
 > ### DISCLAIMER
 >
