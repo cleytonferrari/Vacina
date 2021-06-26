@@ -7,6 +7,9 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Dominio\Dominio\Dominio.csproj" />
     <ProjectReference Include="..\..\Repositorio\RepositorioCSV\RepositorioCSV.csproj" />
+    <ProjectReference Include="..\..\Repositorio\EntityInMemory\EntityInMemory.csproj" />
   </ItemGroup>
+
+
 
 </Project>

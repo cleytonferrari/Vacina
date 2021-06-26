@@ -4,6 +4,7 @@ namespace Dominio
 {
     public class Dose
     {
+        public int Id { get; set; }
         public Paciente Paciente { get; set; }
         public DateTime DataAplicacao { get; set; }
         public string Fabricante { get; set; }

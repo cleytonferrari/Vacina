@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EntityInMemory;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -37,10 +38,22 @@ namespace WebMVC.Controllers
             if (ModelState.IsValid)
             {
                 var servicoArquivo = new ServicoArquivo(_env);
-                var fileName =  servicoArquivo.Upload(vm.Arquivo);
+                var fileName = servicoArquivo.Upload(vm.Arquivo);
+                //teste
+                var repositorio = new DoseRepositorio();
+                var vacinados = repositorio.Get(fileName);
+                servicoArquivo.ApagarArquivo(fileName);
+
+                 var repositorioInMemory = new VacinaRepositorio();
+                 foreach (var item in vacinados)
+                 {
+                     repositorioInMemory.Salvar(item);
+                 }
+                //fim
+
                 ViewBag.Mensagem = "Arquivo adicionado!";
             }
-            
+
             return View();
         }
 

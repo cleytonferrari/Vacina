@@ -14,6 +14,15 @@ namespace WebMVC.Servicos
             this.env = env;
         }
 
+        public string ApagarArquivo(string path)
+        {
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+            return path;
+        }
+
         public string Upload(IFormFile file)
         {
             var diretorioUpload = "CSV/";
@@ -29,7 +38,7 @@ namespace WebMVC.Servicos
             {
                 file.CopyTo(strem);
             }
-            return fileName;
+            return filePath;
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Dominio;
+using EntityInMemory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RepositorioCSV;
@@ -12,7 +14,6 @@ namespace WebMVC.Controllers
 {
     public class HomeController : Controller
     {
-        private const string Path = @"wwwroot/CSV/1.csv";
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -22,10 +23,9 @@ namespace WebMVC.Controllers
 
         public IActionResult Index()
         {
-            var repositorio = new DoseRepositorio();
-            var doc = repositorio.Get(Path);
-
-            return View(doc);
+            var repositorioInMemory = new VacinaRepositorio();
+            var doses = repositorioInMemory.GetAll().ToList();
+            return View(doses);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
