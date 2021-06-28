@@ -1,0 +1,24 @@
+version: '3.8' #https://docs.docker.com/compose/compose-file/compose-versioning/
+
+services:
+    vacinaapp:
+        image: cleytonferrari/appvacina:latest
+        ports:
+            - 8080:80
+        depends_on: 
+            - 'mongodb'
+            
+    mongodb:
+        image: "mongo:latest"
+        container_name: mongodbvacina
+        restart: unless-stopped
+        #log_opt:
+        #    max-size: 10m
+        #    max-file: "5"
+        #environment:
+        #   MONGO_INITDB_ROOT_USERNAME: root
+        #    MONGO_INITDB_ROOT_PASSWORD: senha123
+        #volumes:
+        #  - 'mongodata:/data/db'
+        ports:
+          - '27017:27017'
