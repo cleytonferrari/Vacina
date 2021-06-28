@@ -16,7 +16,9 @@ namespace MongoDb
            
             RegisterConventions();
 
-            MongoClient = new MongoClient("mongodb://localhost:27017");
+            //MongoClient = new MongoClient("mongodb://localhost:27017");
+            MongoClient = new MongoClient("mongodb://mongodbvacina"); //container
+            
             Database = MongoClient.GetDatabase("Vacina");
         }
 

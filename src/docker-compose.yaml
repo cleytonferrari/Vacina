@@ -3,10 +3,13 @@ version: '3.8' #https://docs.docker.com/compose/compose-file/compose-versioning/
 services:
     vacinaapp:
         image: cleytonferrari/appvacina:latest
+        container_name: appvacina
         ports:
             - 8080:80
         depends_on: 
             - 'mongodb'
+        networks:
+            - vacina-network
             
     mongodb:
         image: "mongo:latest"
@@ -22,3 +25,9 @@ services:
         #  - 'mongodata:/data/db'
         ports:
           - '27017:27017'
+        networks:
+            - vacina-network
+    
+networks:
+    vacina-network:
+        driver: bridge
