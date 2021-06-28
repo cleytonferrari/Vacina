@@ -3,7 +3,9 @@
 }
 
 @using Dominio
-@model List<Dose>
+
+@model X.PagedList.IPagedList<Dose>
+@using X.PagedList.Mvc.Core;
 
 <div class="text-center">
     <h1 class="display-4">Vacinados</h1>
@@ -40,4 +42,7 @@
             }
         </tbody>
     </table>
+    <!-- TODO: PagedList não esta formatando -->
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+
 </div>

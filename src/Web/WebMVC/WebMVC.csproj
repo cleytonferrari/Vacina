@@ -5,9 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Dominio\Dominio\Dominio.csproj" />
-    <ProjectReference Include="..\..\Repositorio\RepositorioCSV\RepositorioCSV.csproj" />
+    <ProjectReference Include="..\..\Repositorio\MongoDb\MongoDb.csproj" />
     <ProjectReference Include="..\..\Repositorio\EntityInMemory\EntityInMemory.csproj" />
+    <ProjectReference Include="..\..\Repositorio\ProcessaArquivoCSV\ProcessaArquivoCSV.csproj" />
   </ItemGroup>
 
 

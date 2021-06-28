@@ -1,5 +1,4 @@
-﻿using System;
-using Dominio;
+﻿using Dominio;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityInMemory

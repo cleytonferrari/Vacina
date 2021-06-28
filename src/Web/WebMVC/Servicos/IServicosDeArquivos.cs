@@ -2,10 +2,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace WebMVC.Servicos
 {
-    public interface IServicoArquivo
+    public interface IServicosDeArquivos
     {
         string Upload(IFormFile file);
 
-        string ApagarArquivo(string path);
+        string ExcluirArquivoDoDisco(string path);
     }
 }

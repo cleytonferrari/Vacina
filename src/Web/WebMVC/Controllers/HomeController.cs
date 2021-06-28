@@ -1,35 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Dominio;
-using EntityInMemory;
+using Dominio.Repositorio;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RepositorioCSV;
 using WebMVC.Models;
+using X.PagedList;
 
 namespace WebMVC.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private IDoseRepositorio _doseRepositorio;
+        public HomeController(ILogger<HomeController> logger, IDoseRepositorio doseRepositorio)
         {
             _logger = logger;
+            _doseRepositorio = doseRepositorio;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int? pagina)
         {
-            var repositorioInMemory = new VacinaRepositorio();
-            var doses = repositorioInMemory.GetAll().ToList();
-            return View(doses);
+            const int itensPorPagina = 20; //TODO: Buscar isso do appsettings
+            int numeroPagina = (pagina ?? 1);
+
+            var doses = await _doseRepositorio.Todos();
+            return View(doses.ToPagedList(numeroPagina, itensPorPagina));
         }
 
         [HttpGet("login")]

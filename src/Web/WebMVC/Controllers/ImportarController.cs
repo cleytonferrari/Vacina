@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using EntityInMemory;
+using Dominio.Repositorio;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RepositorioCSV;
@@ -22,42 +17,41 @@ namespace WebMVC.Controllers
 
         private readonly ILogger<ImportarController> _logger;
         private readonly IWebHostEnvironment _env;
+        private readonly IDoseRepositorio _doseRepositorio;
 
-        public ImportarController(ILogger<ImportarController> logger, IWebHostEnvironment env)
+        public ImportarController(ILogger<ImportarController> logger, IWebHostEnvironment env, IDoseRepositorio doseRepositorio)
         {
             _logger = logger;
             _env = env;
+            _doseRepositorio = doseRepositorio;
         }
         
-        public IActionResult Importar()
-        {
-            return View();
-        }
+        
         public IActionResult Index()
         {
             return View();
         }
 
+        public IActionResult Importar()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public IActionResult Index([FromForm] ImportarViewModel vm)
+        public async Task<IActionResult> Importar([FromForm] ImportarViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                var servicoArquivo = new ServicoArquivo(_env);
-                var fileName = servicoArquivo.Upload(vm.Arquivo);
-                //teste
-                var repositorio = new DoseRepositorio();
-                var vacinados = repositorio.Get(fileName);
-                servicoArquivo.ApagarArquivo(fileName);
-
-                 var repositorioInMemory = new VacinaRepositorio();
-                 foreach (var item in vacinados)
-                 {
-                     repositorioInMemory.Salvar(item);
-                 }
-                //fim
-
-                ViewBag.Mensagem = "Arquivo adicionado!";
+                var servicoArquivo = new ServicosDeArquivos(_env);
+                var nomeDoArquivo = servicoArquivo.Upload(vm.Arquivo);
+                
+                //TODO: Validar campos do arquivo CSV
+                var vacinados = ProcessarDoseCSV.Get(nomeDoArquivo);
+                servicoArquivo.ExcluirArquivoDoDisco(nomeDoArquivo);
+                
+                await _doseRepositorio.Inserir(vacinados);
+                
+                ViewBag.Mensagem = $"O arquivo [ {vm.Arquivo.FileName} ] com {vacinados.ToList().Count()} registros foi processados com sucesso!";
             }
 
             return View();

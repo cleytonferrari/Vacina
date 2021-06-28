@@ -1,6 +1,4 @@
-using System;
 using CsvHelper.Configuration;
-using CsvHelper.Configuration.Attributes;
 using Dominio;
 
 namespace RepositorioCSV

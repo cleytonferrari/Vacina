@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dominio;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +13,7 @@ namespace EntityInMemory
             var options = new DbContextOptionsBuilder<VacinaContext>().UseInMemoryDatabase(databaseName: "Test").Options;
             _context = new VacinaContext(options);
         }
+        
         public void Salvar(Dose dose)
         {
             _context.Doses.Add(dose);

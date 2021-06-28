@@ -8,7 +8,7 @@
 @if (!String.IsNullOrEmpty(ViewBag.Mensagem))
 {
    <div class="alert alert-success" role="alert">
-      @ViewBag.Mensagem
+      @Html.Raw(ViewBag.Mensagem)
    </div>
 }
 

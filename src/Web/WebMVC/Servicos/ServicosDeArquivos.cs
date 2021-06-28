@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Http;
 
 namespace WebMVC.Servicos
 {
-    public class ServicoArquivo : IServicoArquivo
+    public class ServicosDeArquivos : IServicosDeArquivos
     {
         private readonly IWebHostEnvironment env;
 
-        public ServicoArquivo(IWebHostEnvironment env)
+        public ServicosDeArquivos(IWebHostEnvironment env)
         {
             this.env = env;
         }
 
-        public string ApagarArquivo(string path)
+        public string ExcluirArquivoDoDisco(string path)
         {
             if (File.Exists(path))
             {
