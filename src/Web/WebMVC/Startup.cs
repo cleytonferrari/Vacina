@@ -26,14 +26,19 @@ namespace WebMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddScoped(typeof(IDoseRepositorio), typeof(DoseRepositorio));
-
+            var connString = Configuration.GetConnectionString("connString");
+            var database = Configuration.GetConnectionString("database");
+            
+            services.AddSingleton<IDoseRepositorio, DoseRepositorio>((provider) =>
+            {
+                return new DoseRepositorio(connString, database);
+            });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options=> {
-                    options.LoginPath = "/login";
-                });
+                    .AddCookie(options =>
+                    {
+                        options.LoginPath = "/login";
+                    });
             services.AddControllersWithViews();
         }
 

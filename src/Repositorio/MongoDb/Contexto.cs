@@ -11,15 +11,14 @@ namespace MongoDb
        
         public IClientSessionHandle Session { get; set; }
 
-        public Contexto()
+        public Contexto(string connectionString, string nomeBanco)
         {
            
             RegisterConventions();
 
-            //MongoClient = new MongoClient("mongodb://localhost:27017");
-            MongoClient = new MongoClient("mongodb://mongodbvacina"); //container
-            
-            Database = MongoClient.GetDatabase("Vacina");
+            MongoClient = new MongoClient(connectionString);
+
+            Database = MongoClient.GetDatabase(nomeBanco);
         }
 
         private static void RegisterConventions()

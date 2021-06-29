@@ -12,9 +12,9 @@ namespace MongoDb
         private readonly Contexto<T> _contexto;
         protected readonly IMongoCollection<T> _collection;
 
-        public Repositorio()
+        public Repositorio(string connectionString, string nomeBanco)
         {
-            _contexto = new Contexto<T>();
+            _contexto = new Contexto<T>(connectionString, nomeBanco);
             _collection = _contexto.GetCollection<T>(typeof(T).Name);
         }
 
