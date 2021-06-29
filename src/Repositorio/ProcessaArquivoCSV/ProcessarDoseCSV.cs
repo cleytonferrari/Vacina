@@ -12,13 +12,20 @@ namespace RepositorioCSV
     {
         public static IEnumerable<Dose> Get(string path){
             var config = new CsvConfiguration(CultureInfo.InvariantCulture) { Delimiter = ";" };
-
-            using (var reader = new StreamReader(path))
-            using (var csv = new CsvReader(reader, config))
+            try
             {
-                csv.Context.RegisterClassMap<DoseMap>();
-                return csv.GetRecords<Dose>().ToList();
+                using (var reader = new StreamReader(path))
+                using (var csv = new CsvReader(reader, config))
+                {
+                    csv.Context.RegisterClassMap<DoseMap>();
+                    return csv.GetRecords<Dose>().ToList();
+                }
             }
+            catch (System.Exception)
+            {
+                return null;
+            }
+            
         }
     }
 }

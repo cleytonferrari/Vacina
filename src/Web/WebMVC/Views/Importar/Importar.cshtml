@@ -1,25 +1,27 @@
 @model ImportarViewModel;
 
 @{
-   ViewData["Title"] = "Importar Dados";
+    ViewData["Title"] = "Importar Dados";
+    string msg = ViewBag.Mensagem ?? "";
+    string classMsg = (msg.StartsWith("Erro")) ? "alert-danger" : "alert-success";
 }
 <h1>@ViewData["Title"]</h1>
 
-@if (!String.IsNullOrEmpty(ViewBag.Mensagem))
+@if (!String.IsNullOrEmpty(msg))
 {
-   <div class="alert alert-success" role="alert">
-      @Html.Raw(ViewBag.Mensagem)
-   </div>
+    <div class="alert @classMsg" role="alert">
+        @Html.Raw(ViewBag.Mensagem)
+    </div>
 }
 
 <form class="col-xs-12" method="post" action="" enctype="multipart/form-data">
 
-   <div class="form-group">
-      <label for="exampleFormControlFile1">Escolha o arquivo *.csv para importação.</label>
-      <input type="file" class="form-control-file" name="Arquivo" />
-   </div>
+    <div class="form-group">
+        <label for="exampleFormControlFile1">Escolha o arquivo *.csv para importação.</label>
+        <input type="file" class="form-control-file" name="Arquivo" />
+    </div>
 
-   <div class="form-group">
-      <button type="submit" class="btn btn-primary col-xs-12">Adicionar</button>
-   </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary col-xs-12">Adicionar</button>
+    </div>
 </form>

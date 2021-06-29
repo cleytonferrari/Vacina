@@ -25,8 +25,8 @@ namespace WebMVC.Controllers
             _env = env;
             _doseRepositorio = doseRepositorio;
         }
-        
-        
+
+
         public IActionResult Index()
         {
             return View();
@@ -42,16 +42,22 @@ namespace WebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                string msg;
                 var servicoArquivo = new ServicosDeArquivos(_env);
                 var nomeDoArquivo = servicoArquivo.Upload(vm.Arquivo);
-                
-                //TODO: Validar campos do arquivo CSV
                 var vacinados = ProcessarDoseCSV.Get(nomeDoArquivo);
+
+                if (vacinados != null)
+                {
+                    await _doseRepositorio.Inserir(vacinados);
+                    msg = $"O arquivo [ {vm.Arquivo.FileName} ] com {vacinados.ToList().Count} registros foi processados com sucesso!";
+                }
+                else
+                    msg = "Erro: O arquivo enviado para a Importação não é válido!";
+
                 servicoArquivo.ExcluirArquivoDoDisco(nomeDoArquivo);
-                
-                await _doseRepositorio.Inserir(vacinados);
-                
-                ViewBag.Mensagem = $"O arquivo [ {vm.Arquivo.FileName} ] com {vacinados.ToList().Count()} registros foi processados com sucesso!";
+
+                ViewBag.Mensagem = msg;
             }
 
             return View();
