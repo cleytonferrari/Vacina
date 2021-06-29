@@ -42,7 +42,8 @@ namespace WebMVC.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Validar(string usuario, string senha, string returnUrl)
         {
-            ViewData["ReturnUrl"] = string.IsNullOrEmpty(returnUrl) ? "/importar" : returnUrl;
+            returnUrl = string.IsNullOrEmpty(returnUrl) ? "/importar" : returnUrl;
+            ViewData["ReturnUrl"] = returnUrl;
             if (usuario == "admin" && senha == "admin")
             {
                 var claims = new List<Claim>
