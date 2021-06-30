@@ -5,6 +5,6 @@ namespace Dominio.Repositorio
 {
     public interface IDoseRepositorio : IRepositorio<Dose>
     {
-        Task<IEnumerable<Dose>> GetPorFabricante(string fabricante);
+        public Task<IEnumerable<Dose>> GetPorFabricante(string fabricante);
     }
 }

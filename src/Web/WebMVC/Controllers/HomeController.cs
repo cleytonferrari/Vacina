@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Dominio.Repositorio;
@@ -16,11 +17,11 @@ namespace WebMVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private IDoseRepositorio _doseRepositorio;
-        public HomeController(ILogger<HomeController> logger, IDoseRepositorio doseRepositorio)
+        private IVacinadosRepositorio _vacinadosRepositorio;
+        public HomeController(ILogger<HomeController> logger, IVacinadosRepositorio vacinadosRepositorio)
         {
             _logger = logger;
-            _doseRepositorio = doseRepositorio;
+            _vacinadosRepositorio = vacinadosRepositorio;
         }
 
         public async Task<IActionResult> Index(int? pagina)
@@ -28,8 +29,8 @@ namespace WebMVC.Controllers
             const int itensPorPagina = 20; //TODO: Buscar isso do appsettings
             int numeroPagina = (pagina ?? 1);
 
-            var doses = await _doseRepositorio.Todos();
-            return View(doses.ToPagedList(numeroPagina, itensPorPagina));
+            var vacinados = await _vacinadosRepositorio.Todos();
+            return View(vacinados.OrderBy(x=>x.Pessoa.Nome).ToPagedList(numeroPagina, itensPorPagina));
         }
 
         [HttpGet("login")]

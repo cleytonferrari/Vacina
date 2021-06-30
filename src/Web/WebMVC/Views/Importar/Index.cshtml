@@ -4,18 +4,8 @@
         <p class="lead">Aqui você pode alimentar com dados o vacinômetro!</p>
         <hr class="my-4">
         <p>Atualmente, só é possível alimentar o vacinômetro com arquivos exportado do <a href="https://notifica.saude.gov.br/">eSUS Notifica</a>.</p>
-        <p>O arquivo <b>*.csv</b> gerado pelo <b>eSUS Notifica</b> deve possuir os seguintes campos: </p>
-        <pre>
-paciente_nome;
-paciente_enumSexoBiologico;
-paciente_dataNascimento;
-vacina_dataAplicacao;
-vacina_fabricante_nome;
-vacina_grupoAtendimento_nome;
-vacina_lote;
-vacina_numDose;
-estabelecimento_valor
-        </pre>
+        <p>Você deve marcar todos os campos na hora de exportar o arquivo <b>*.csv</b> no <b>eSUS Notifica</b>.</p>
+
 
         <p class="lead">
             <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Importar" asp-action="Importar" role="button">Importar Dados</a>

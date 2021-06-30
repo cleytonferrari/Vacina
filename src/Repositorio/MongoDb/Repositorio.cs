@@ -18,12 +18,12 @@ namespace MongoDb
             _collection = _contexto.GetCollection<T>(typeof(T).Name);
         }
 
-        public virtual Task Inserir(T entidade)
+        public virtual Task InserirAsync(T entidade)
         {
             return _collection.InsertOneAsync(entidade);
         }
 
-        public async Task Inserir(IEnumerable<T> entidades)
+        public async Task InserirAsync(IEnumerable<T> entidades)
         {
             await _collection.InsertManyAsync(entidades);
         }
@@ -40,7 +40,7 @@ namespace MongoDb
             return all.ToList();
         }
 
-        public Task Atualizar(T entidade)
+        public Task AtualizarAsync(T entidade)
         {
             return _collection.ReplaceOneAsync(Builders<T>.Filter.Eq("_id", entidade.Id), entidade);
         }
@@ -50,5 +50,14 @@ namespace MongoDb
             return _collection.DeleteOneAsync(Builders<T>.Filter.Eq("_id", id));
         }
 
+        public void Inserir(T entidade)
+        {
+            _collection.InsertOneAsync(entidade);
+        }
+
+        public void Atualizar(T entidade)
+        {
+            _collection.ReplaceOne(Builders<T>.Filter.Eq("_id", entidade.Id), entidade);
+        }
     }
 }

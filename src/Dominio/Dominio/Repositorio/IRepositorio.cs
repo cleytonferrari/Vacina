@@ -9,12 +9,15 @@ namespace Dominio.Repositorio
        
         Task<IEnumerable<T>> Todos();
         
-        Task Inserir(T entidade);
+        Task InserirAsync(T entidade);
 
-        Task Inserir(IEnumerable<T> entidades);
+        void Inserir(T entidade);
 
-        Task Atualizar(T entidade);
-        
+        Task InserirAsync(IEnumerable<T> entidades);
+
+        Task AtualizarAsync(T entidade);
+
+        void Atualizar(T entidade);
         Task Remover(string id);
     }
 }

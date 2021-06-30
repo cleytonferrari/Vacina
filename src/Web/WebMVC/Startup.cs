@@ -29,9 +29,9 @@ namespace WebMVC
             var connString = Configuration.GetConnectionString("connString");
             var database = Configuration.GetConnectionString("database");
             
-            services.AddSingleton<IDoseRepositorio, DoseRepositorio>((provider) =>
+            services.AddSingleton<IVacinadosRepositorio, VacinadosRepositorio>((provider) =>
             {
-                return new DoseRepositorio(connString, database);
+                return new VacinadosRepositorio(connString, database);
             });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

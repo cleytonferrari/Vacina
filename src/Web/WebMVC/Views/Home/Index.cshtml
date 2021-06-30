@@ -4,7 +4,7 @@
 
 @using Dominio
 
-@model X.PagedList.IPagedList<Dose>
+@model X.PagedList.IPagedList<Vacinados>
 @using X.PagedList.Mvc.Core;
 
 <div class="text-center">
@@ -16,28 +16,26 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Sexo</th>
                 <th scope="col">Data Nascimento</th>
-                <th scope="col">Fabricante</th>
-                <th scope="col">Grupo Atendimento</th>
-                <th scope="col">Lote</th>
-                <th scope="col">Nº Dose</th>
-                <th scope="col">Data Aplicação</th>
-                <th scope="col">CNES</th>
+                <th scope="col">Grupo de Atendimento</th>
+                <th scope="col">Dose - Lote - Data Aplicação - Vacina</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var dose in Model)
+            @foreach (var item in Model)
             {
                 <tr>
                     <th scope="row">#</th>
-                    <td>@dose.Paciente.Nome</td>
-                    <td>@dose.Paciente.Sexo</td>
-                    <td>@dose.Paciente.DataNascimento.ToString("d")</td>
-                    <td>@dose.Fabricante</td>
-                    <td>@dose.GrupoAtendimento</td>
-                    <td>@dose.Lote</td>
-                    <td>@dose.NumeroDose</td>
-                    <td>@dose.DataAplicacao.ToString("d")</td>
-                    <td>@dose.CNES</td>
+                    <td>@item.Pessoa.Nome</td>
+                    <td>@item.Pessoa.Sexo</td>
+                    <td>@item.Pessoa.DataNascimento.ToString("d")</td>
+                    <td>@item.GrupoDeAtendimento.Nome</td>
+                    <td>
+                        @foreach (var dose in item.Doses.OrderBy(x=>x.NumeroDose))
+                        {
+
+                            @(dose.DescricaoDose +" - "+ @dose.Lote +" - "+ @dose.DataAplicacao.ToString("d") +" ["+ dose.Vacina.Nome+"]");<br />
+                        }
+                    </td>
                 </tr>
             }
         </tbody>

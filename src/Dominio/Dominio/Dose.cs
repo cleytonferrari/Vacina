@@ -4,13 +4,11 @@ namespace Dominio
 {
     public class Dose : EntidadeBase
     {
-        public Pessoa Paciente { get; set; }
-        public DateTime DataAplicacao { get; set; }
-        public string Fabricante { get; set; }
-        public string GrupoAtendimento { get; set; }
-        public string Lote { get; set; }
-        public string NumeroDose { get; set; }
-        public string CNES { get; set; }        
+        public Vacina Vacina { get; set; }
+        public DateTime DataAplicacao { get; set; }//vacina_dataAplicacao;
+        public string Lote { get; set; }//vacina_lote;
+        public string DescricaoDose { get; set; }//vacina_descricao_dose;
+        public string NumeroDose { get; set; }//vacina_numDose;;
+        public EstabelecimentoDeSaude EstabelecimentoDeSaude { get; set; }
     }
 }
-

@@ -19,13 +19,13 @@ namespace WebMVC.Controllers
 
         private readonly ILogger<ImportarController> _logger;
         private readonly IWebHostEnvironment _env;
-        private readonly IDoseRepositorio _doseRepositorio;
+        private readonly IVacinadosRepositorio _vacinadosRepositorio;
 
-        public ImportarController(ILogger<ImportarController> logger, IWebHostEnvironment env, IDoseRepositorio doseRepositorio)
+        public ImportarController(ILogger<ImportarController> logger, IWebHostEnvironment env, IVacinadosRepositorio vacinadosRepositorio)
         {
             _logger = logger;
             _env = env;
-            _doseRepositorio = doseRepositorio;
+            _vacinadosRepositorio = vacinadosRepositorio;
         }
 
 
@@ -47,8 +47,8 @@ namespace WebMVC.Controllers
                 string msg;
                 var servicoArquivo = new ServicosDeArquivos(_env);
                 var nomeDoArquivo = servicoArquivo.Upload(vm.Arquivo);
-                var vacinadosCSV = ProcessarDoseCSV.Get(nomeDoArquivo);
-                
+                var vacinadosCSV = ProcessarVacinadosCSV.Get(nomeDoArquivo);
+
                 servicoArquivo.ExcluirArquivoDoDisco(nomeDoArquivo);
 
                 if (vacinadosCSV == null)
@@ -58,37 +58,32 @@ namespace WebMVC.Controllers
                 }
 
                 #region Verifica Duplicados
-                var vacinadosBanco = await _doseRepositorio.Todos();
+                var vacinadosDuplicados = new List<Vacinados>();
+                var vacinadosNovos = new List<Vacinados>();
 
-                var vacinadosDuplicados = new List<Dose>();
-                var vacinadosNovos = new List<Dose>();
-
-                foreach (var item in vacinadosCSV)
+                foreach (var itemCSV in vacinadosCSV)
                 {
-                    if (vacinadosBanco.Any(
-                        x => x.Paciente.Nome == item.Paciente.Nome
-                        && x.NumeroDose == item.NumeroDose
-                        && x.DataAplicacao.ToShortDateString() == item.DataAplicacao.ToShortDateString()))
+                    var vacinado = new Vacinados();
+                    vacinado.Doses.Add(itemCSV.Dose);
+                    vacinado.Pessoa = itemCSV.Pessoa;
+                    vacinado.GrupoDeAtendimento = itemCSV.GrupoDeAtendimento;
+
+                    var vacinadoBanco = _vacinadosRepositorio.GetPorCNSouCPF(itemCSV.Pessoa.CNS, itemCSV.Pessoa.CPF);
+                    if (vacinadoBanco != null)
                     {
-                        vacinadosDuplicados.Add(item);
+                        if (!vacinadoBanco.Doses.Any(x => x.NumeroDose == itemCSV.Dose.NumeroDose))
+                        {
+                            vacinadoBanco.Doses.Add(itemCSV.Dose);
+                            _vacinadosRepositorio.Atualizar(vacinadoBanco);
+                        }
                     }
                     else
-                    {
-                        vacinadosNovos.Add(item);
-                    }
+                        _vacinadosRepositorio.Inserir(vacinado);
+
                 }
                 #endregion
 
-                msg = $"O arquivo [ {vm.Arquivo.FileName} ] com {vacinadosCSV.ToList().Count} registros foi processados com sucesso!";
-                if (vacinadosNovos.Any())
-                {
-                    await _doseRepositorio.Inserir(vacinadosNovos);
-                    msg += $"<br /> - {vacinadosNovos.ToList().Count} novos registros foram importados!";
-                }
-                if (vacinadosDuplicados.Any())
-                    msg += $"<br /> - {vacinadosDuplicados.ToList().Count} registros duplicados, não foram importados!";
-
-                ViewBag.Mensagem = msg;
+                ViewBag.Mensagem = $"O arquivo [ {vm.Arquivo.FileName} ] com {vacinadosCSV.ToList().Count} registros, foi processados com sucesso!";
             }
 
             return View();
