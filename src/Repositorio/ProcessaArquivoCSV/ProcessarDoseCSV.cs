@@ -21,7 +21,7 @@ namespace RepositorioCSV
                     return csv.GetRecords<Dose>().ToList();
                 }
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
                 return null;
             }

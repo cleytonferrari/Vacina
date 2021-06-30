@@ -13,7 +13,8 @@ namespace RepositorioCSV
         {
             Map(m => m.Nome).Name("paciente_nome");
             Map(m => m.Sexo).Name("paciente_enumSexoBiologico");
-            Map(m => m.DataNascimento).Name("paciente_dataNascimento").TypeConverterOption.Format("dd/MM/yyyy");
+            //TODO: Poder escolher a formatação da data, caso o arquivo venha com data em outro formato
+            Map(m => m.DataNascimento).Name("paciente_dataNascimento").TypeConverterOption.Format("yyyy-MM-dd");
         }
 
     }
