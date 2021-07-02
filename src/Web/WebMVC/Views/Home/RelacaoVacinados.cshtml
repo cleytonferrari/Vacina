@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Vacinados";
+}
+@using Dominio
+
+@model X.PagedList.IPagedList<Vacinados>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
+@using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
+@using X.PagedList.Mvc.Core.Fluent
+@using X.PagedList.Web.Common
+
+<div class="row g-3 mb-4 align-items-center justify-content-between">
+    <div class="col-auto">
+        <h1 class="app-page-title mb-0">Relação dos vacinados</h1>
+    </div>
+    <div class="col-auto">
+        <div class="page-utilities">
+            <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+                <div class="col-auto">
+                    <form class="table-search-form row gx-1 align-items-center">
+                        <div class="col-auto">
+                            <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Procurar">
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn app-btn-secondary">Procurar</button>
+                        </div>
+                    </form>
+
+                </div><!--//col-->
+                <div class="col-auto">
+
+                    <select class="form-select w-auto">
+                        <option selected value="todos">Todos</option>
+                        <option value="semana">Última semana</option>
+                        <option value="mes">Último mês</option>
+                        <option value="tresmes">Últimos 3 meses</option>
+
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <a class="btn app-btn-secondary" href="#">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                            <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z" />
+                        </svg>
+                        Download CSV - Vacinados
+                    </a>
+                </div>
+            </div><!--//row-->
+        </div><!--//table-utilities-->
+    </div><!--//col-auto-->
+</div><!--//row-->
+
+
+<nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Todos</a>
+
+</nav>
+
+
+<div class="tab-content" id="orders-table-tab-content">
+    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+        <div class="app-card app-card-orders-table shadow-sm mb-5">
+            <div class="app-card-body">
+                <div class="table-responsive">
+                    <table class="table app-table-hover mb-0 text-left">
+                        <thead>
+                            <tr>
+                                <th class="cell">Nome</th>
+                                <th class="cell">Sexo</th>
+                                <th class="cell" label="Data nascimento">Nascimento</th>
+                                <th class="cell">Grupo</th>
+                                <th class="cell">Dose - Lote - Data aplicação - Vacina</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="cell">@item.Pessoa.Nome</td>
+                                    <td class="cell">@item.Pessoa.Sexo</td>
+                                    <td class="cell">@item.Pessoa.DataNascimento.ToString("dd/MM/yyyy")</td>
+                                    <td class="cell">@item.GrupoDeAtendimento.Nome</td>
+
+                                    <td class="cell">
+                                        @foreach (var dose in item.Doses.OrderBy(x => x.NumeroDose))
+                                        {
+                                            <span class="cell-data"><span class="badge bg-success">@dose.DescricaoDose</span> @dose.Lote - @dose.DataAplicacao.ToString("dd/MM/yy")</span><span class="note">@dose.Vacina.Nome</span>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div><!--//table-responsive-->
+
+            </div><!--//app-card-body-->
+        </div><!--//app-card-->
+
+
+
+        @Html.PagedListPager(Model, pagina => Url.Action("relacaovacinados", new { pagina }), new PagedListRenderOptions
+   {
+       LiElementClasses = new string[] { "page-item" },
+       PageClasses = new string[] { "page-link" },
+       UlElementClasses = new string[] { "pagination", "justify-content-center" },
+       ContainerDivClasses = new string[] { "app-pagination" },
+       
+   })
+
+    </div><!--//tab-pane-->
+
+</div><!--//tab-content-->

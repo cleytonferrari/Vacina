@@ -33,6 +33,16 @@ namespace WebMVC.Controllers
             return View(vacinados.OrderBy(x=>x.Pessoa.Nome).ToPagedList(numeroPagina, itensPorPagina));
         }
 
+        public async Task<IActionResult> RelacaoVacinados(int? pagina)
+        {
+            const int itensPorPagina = 20; //TODO: Buscar isso do appsettings
+            int numeroPagina = (pagina ?? 1);
+
+            var vacinados = await _vacinadosRepositorio.Todos();
+            return View(vacinados.OrderBy(x => x.Pessoa.Nome).ToPagedList(numeroPagina, itensPorPagina));
+        }
+
+
         [HttpGet("login")]
         public IActionResult Login(string returnUrl)
         {
