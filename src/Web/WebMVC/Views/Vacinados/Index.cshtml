@@ -102,7 +102,7 @@
 
 
 
-        @Html.PagedListPager(Model, pagina => Url.Action("relacaovacinados", new { pagina }), new PagedListRenderOptions
+        @Html.PagedListPager(Model, pagina => Url.Action("index", new { pagina }), new PagedListRenderOptions
    {
        LiElementClasses = new string[] { "page-item" },
        PageClasses = new string[] { "page-link" },

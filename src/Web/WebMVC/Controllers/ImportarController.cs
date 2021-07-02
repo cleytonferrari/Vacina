@@ -44,7 +44,6 @@ namespace WebMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                string msg;
                 var servicoArquivo = new ServicosDeArquivos(_env);
                 var nomeDoArquivo = servicoArquivo.Upload(vm.Arquivo);
                 var vacinadosCSV = ProcessarVacinadosCSV.Get(nomeDoArquivo);

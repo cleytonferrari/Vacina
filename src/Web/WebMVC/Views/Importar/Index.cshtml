@@ -1,14 +1,46 @@
-﻿<div class="text-center">
-    <div class="jumbotron">
-        <h1 class="display-4">Bem-Vindo! @User.Identity.Name</h1>
-        <p class="lead">Aqui você pode alimentar com dados o vacinômetro!</p>
-        <hr class="my-4">
-        <p>Atualmente, só é possível alimentar o vacinômetro com arquivos exportado do <a href="https://notifica.saude.gov.br/">eSUS Notifica</a>.</p>
-        <p>Você deve marcar todos os campos na hora de exportar o arquivo <b>*.csv</b> no <b>eSUS Notifica</b>.</p>
+﻿<h1 class="app-page-title">Painel administrativo</h1>
+<div class="app-card shadow-sm mb-4 border-left-decoration">
+    <div class="inner">
+        <div class="app-card-body p-4">
+            <div class="row gx-5 gy-3">
+                <div class="col-12 col-lg-9">
 
+                    <div>
+                        <h3>Olá! @User.Identity.Name .</h3>
+                        <p>Aqui você pode alimentar com dados o vacinômetro! Atualmente, é possível alimentar o vacinômetro com arquivos exportados do <a href="https://notifica.saude.gov.br/" target="_blank">eSUS Notifica</a>.
+                    </div>
+                </div><!--//col-->
+                <div class="col-12 col-lg-3">
+                    <a class="btn app-btn-primary" asp-area="" asp-controller="Importar" asp-action="Importar">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up-right-square me-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                            <path fill-rule="evenodd" d="M5.172 10.828a.5.5 0 0 0 .707 0l4.096-4.096V9.5a.5.5 0 1 0 1 0V5.525a.5.5 0 0 0-.5-.5H6.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z" />
+                        </svg>Iniciar Importação
+                    </a>
+                </div><!--//col-->
+            </div><!--//row-->
 
-        <p class="lead">
-            <a class="btn btn-primary btn-lg" asp-area="" asp-controller="Importar" asp-action="Importar" role="button">Importar Dados</a>
-        </p>
-    </div>
-</div>
+        </div><!--//app-card-body-->
+
+        <div class="item p-3">
+            <div class="row gx-2 justify-content-between align-items-center">
+                <div class="col-auto">
+                    <div class="app-icon-holder icon-holder-mono">
+                        
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-code-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"></path>
+                            <path fill-rule="evenodd" d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0zm2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z"></path>
+                        </svg>
+                    </div>
+                </div><!--//col-->
+                <div class="col">
+                    <div class="info">
+                        <div class="desc">Atenção! Você deve marcar todos os campos na hora de exportar o arquivo <code>*.csv</code> no <b>eSUS Notifica</b>.</div>
+                    </div>
+                </div><!--//col-->
+            </div><!--//row-->
+            <a class="link-mask" href="#"></a>
+        </div><!--//item-->
+    </div><!--//inner-->
+</div><!--//app-card-->
+

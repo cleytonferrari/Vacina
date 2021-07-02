@@ -14,22 +14,17 @@ using X.PagedList;
 
 namespace WebMVC.Controllers
 {
-    public class HomeController : Controller
+    public class VacinadosController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<VacinadosController> _logger;
         private IVacinadosRepositorio _vacinadosRepositorio;
-        public HomeController(ILogger<HomeController> logger, IVacinadosRepositorio vacinadosRepositorio)
+        public VacinadosController(ILogger<VacinadosController> logger, IVacinadosRepositorio vacinadosRepositorio)
         {
             _logger = logger;
             _vacinadosRepositorio = vacinadosRepositorio;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> RelacaoVacinados(int? pagina)
+        public async Task<IActionResult> Index(int? pagina)
         {
             const int itensPorPagina = 20; //TODO: Buscar isso do appsettings
             int numeroPagina = (pagina ?? 1);
@@ -38,11 +33,5 @@ namespace WebMVC.Controllers
             return View(vacinados.OrderBy(x => x.Pessoa.Nome).ToPagedList(numeroPagina, itensPorPagina));
         }
 
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
