@@ -12,7 +12,7 @@ services:
             - vacina-network
             
     mongodb:
-        image: "mongo:latest"
+        image: "mongo:4.4"
         container_name: mongodbvacina
         restart: unless-stopped
         volumes:
@@ -28,3 +28,7 @@ networks:
 
 volumes:
     mongodata:
+        driver_opts:
+            type: none
+            device: ./database #mkdir -pv database
+            o: bind
