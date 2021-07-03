@@ -26,23 +26,31 @@ namespace WebMVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            var tPrimeiraDose =_vacinadosRepositorio.GetTotalDose("1");
+            var tSegundaDose = _vacinadosRepositorio.GetTotalDose("2");
+            //Janssen
+            var tJanssen = await _vacinadosRepositorio.GetPorNomeDaVacina("janssen");
+
+            var viewModel = new IndexHomeViewModel
+            {
+                TotalPrimeiraDose = await tPrimeiraDose,
+                TotalSegundaDose = await tSegundaDose,
+                TotalDoseUnica = tJanssen.Count()
+            };
+
+            return View(viewModel);
         }
-
-        public async Task<IActionResult> RelacaoVacinados(int? pagina)
-        {
-            const int itensPorPagina = 20; //TODO: Buscar isso do appsettings
-            int numeroPagina = (pagina ?? 1);
-
-            var vacinados = await _vacinadosRepositorio.Todos();
-            return View(vacinados.OrderBy(x => x.Pessoa.Nome).ToPagedList(numeroPagina, itensPorPagina));
-        }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+    }
+    public class IndexHomeViewModel
+    {
+        public int TotalPrimeiraDose { get; set; }
+        public int TotalSegundaDose { get; set; }
+        public int TotalDoseUnica { get; set; }
     }
 }

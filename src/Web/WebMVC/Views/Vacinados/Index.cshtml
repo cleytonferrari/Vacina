@@ -3,9 +3,8 @@
 }
 @using Dominio
 
-@model X.PagedList.IPagedList<Vacinados>
+@model WebMVC.Controllers.IndexVacinadosViewModel
 @using X.PagedList.Mvc.Core;
-@using X.PagedList.Mvc.Core; @*import this so we get our HTML Helper*@
 @using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
 @using X.PagedList.Mvc.Core.Fluent
 @using X.PagedList.Web.Common
@@ -18,9 +17,20 @@
         <div class="page-utilities">
             <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                 <div class="col-auto">
-                    <form class="table-search-form row gx-1 align-items-center">
+                    <form class="table-search-form row gx-2 align-items-center" action="" method="get">
                         <div class="col-auto">
-                            <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Procurar">
+                            <input type="text" id="busca" name="busca" class="form-control search-input" value="@Context.Request.Query["busca"]" placeholder="Procurar">
+                        </div>
+                        <div class="col-auto">
+                            <select class="form-select w-auto" name="dose" id="dose">
+                                <option value="" disabled selected>Dose</option>
+                                <option value="1">1ª Dose</option>
+                                <option value="2">2ª Dose</option>
+                            </select>
+                        </div>
+
+                        <div class="col-auto">
+                            @Html.DropDownList("grupo", new SelectList(Model.GrupoDeAtendimento, "Nome", "Nome"), "", new { @class = "form-select", placeholder = "Grupo de Atendimento" })
                         </div>
                         <div class="col-auto">
                             <button type="submit" class="btn app-btn-secondary">Procurar</button>
@@ -28,16 +38,7 @@
                     </form>
 
                 </div><!--//col-->
-                <div class="col-auto">
 
-                    <select class="form-select w-auto">
-                        <option selected value="todos">Todos</option>
-                        <option value="semana">Última semana</option>
-                        <option value="mes">Último mês</option>
-                        <option value="tresmes">Últimos 3 meses</option>
-
-                    </select>
-                </div>
                 <div class="col-auto">
                     <a class="btn app-btn-secondary" href="#">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -47,6 +48,7 @@
                         Download CSV - Vacinados
                     </a>
                 </div>
+
             </div><!--//row-->
         </div><!--//table-utilities-->
     </div><!--//col-auto-->
@@ -75,12 +77,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Vacinados)
                             {
                                 <tr>
                                     <td class="cell">@item.Pessoa.Nome</td>
                                     <td class="cell">@item.Pessoa.Sexo</td>
-                                    <td class="cell">@item.Pessoa.DataNascimento.ToString("dd/MM/yyyy")</td>
+                                    <td class="cell">@item.Pessoa.DataNascimento.ToString("**/**/yyyy")</td>
                                     <td class="cell">@item.GrupoDeAtendimento.Nome</td>
 
                                     <td class="cell">
@@ -102,14 +104,20 @@
 
 
 
-        @Html.PagedListPager(Model, pagina => Url.Action("index", new { pagina }), new PagedListRenderOptions
-   {
-       LiElementClasses = new string[] { "page-item" },
-       PageClasses = new string[] { "page-link" },
-       UlElementClasses = new string[] { "pagination", "justify-content-center" },
-       ContainerDivClasses = new string[] { "app-pagination" },
-       
-   })
+        @Html.PagedListPager(Model.Vacinados, pagina => Url.Action("index",
+            new {
+                pagina = pagina,
+                busca = Context.Request.Query["busca"],
+                dose = Context.Request.Query["dose"],
+                grupo = Context.Request.Query["grupo"]
+            }), new PagedListRenderOptions
+            {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                UlElementClasses = new string[] { "pagination", "justify-content-center" },
+                ContainerDivClasses = new string[] { "app-pagination" },
+
+            })
 
     </div><!--//tab-pane-->
 

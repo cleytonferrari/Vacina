@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Dominio.Repositorio
@@ -6,7 +7,9 @@ namespace Dominio.Repositorio
     public interface IRepositorio<T> where T : EntidadeBase
     {
         Task<T> BuscarPorId(string id);
-       
+
+        IQueryable<T> Buscar();
+
         Task<IEnumerable<T>> Todos();
         
         Task InserirAsync(T entidade);
@@ -18,6 +21,7 @@ namespace Dominio.Repositorio
         Task AtualizarAsync(T entidade);
 
         void Atualizar(T entidade);
+
         Task Remover(string id);
     }
 }

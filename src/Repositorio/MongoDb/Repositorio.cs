@@ -34,6 +34,11 @@ namespace MongoDb
             return data.FirstOrDefault();
         }
 
+        public IQueryable<T> Buscar()
+        {
+            return _collection.AsQueryable<T>();
+        }
+
         public async Task<IEnumerable<T>> Todos()
         {
             var all = await _collection.FindAsync(Builders<T>.Filter.Empty);
@@ -59,5 +64,6 @@ namespace MongoDb
         {
             _collection.ReplaceOne(Builders<T>.Filter.Eq("_id", entidade.Id), entidade);
         }
+
     }
 }

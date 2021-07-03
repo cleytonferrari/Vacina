@@ -5,9 +5,15 @@ namespace Dominio.Repositorio
 {
     public interface IVacinadosRepositorio : IRepositorio<Vacinados>
     {
-        Task<IEnumerable<Vacinados>> GetPorNome(string nome);
+        Task<List<Vacinados>> GetPorNome(string nome);
 
         Vacinados GetPorCNSouCPF(string cns, string cpf);
+
+        Task<List<GrupoDeAtendimento>> GetGruposDeAtendimento();
+
+        Task<int> GetTotalDose(string numeroDose);
+
+        Task<List<Vacinados>> GetPorNomeDaVacina(string nome);
 
     }
 }
