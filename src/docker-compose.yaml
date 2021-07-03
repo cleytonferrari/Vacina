@@ -16,7 +16,7 @@ services:
         container_name: mongodbvacina
         restart: unless-stopped
         volumes:
-          - 'mongodata:/data/db'
+          - 'mongodata:/data'
         ports:
           - '27017:27017'
         networks:
@@ -32,3 +32,9 @@ volumes:
             type: none
             device: ./database #mkdir -pv database
             o: bind
+
+##### Para fazer backup e restore do banco Vacina no MongoDb
+## backup ( será salvo no volume mongodata, que esta mapeado para ./database )
+#> docker exec -it mongodbvacina mongodump --db Vacina --out /data/backups
+## restore
+#> docker exec -it mongodbvacina mongorestore /data/backups --drop
