@@ -32,20 +32,36 @@ namespace WebMVC.Controllers
         {
             var tMasculino = _estatisticaRepositorio.TotalPorSexoImunizado("M");
             var tFeminino = _estatisticaRepositorio.TotalPorSexoImunizado("F");
-            //Janssen
-
-            var viewModel = new List<SexoDadosViewModel>
+          
+            var viewModel = new List<ChartDadosViewModel>
             {
-                new SexoDadosViewModel { Label = "Masculino", Total = await tMasculino },
-                new SexoDadosViewModel { Label = "Feminino", Total = await tFeminino }
+                new ChartDadosViewModel { Label = "Masculino", Total = await tMasculino },
+                new ChartDadosViewModel { Label = "Feminino", Total = await tFeminino }
             };
 
             return Ok(viewModel);
         }
 
-        
+        [Route("totalimunizado")]
+        public async Task<IActionResult> GetTotalImunizado()
+        {
+            var tImunizados = _estatisticaRepositorio.TotalImunizado();
+            
+            //buscar do ibge https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2020/variaveis/9324?localidades=N6[1100403]
+            var tPopulacao = 21847; 
+
+            var viewModel = new List<ChartDadosViewModel>
+            {
+                new ChartDadosViewModel { Label = "Imunizados", Total = await tImunizados },
+                new ChartDadosViewModel { Label = "População", Total =  tPopulacao }
+            };
+
+            return Ok(viewModel);
+        }
+
+
     }
-    public class SexoDadosViewModel
+    public class ChartDadosViewModel
     {
         public int Total { get; set; }
         public string Label { get; set; }
