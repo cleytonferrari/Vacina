@@ -57,9 +57,6 @@ namespace WebMVC.Controllers
                 }
 
                 #region Verifica Duplicados
-                var vacinadosDuplicados = new List<Vacinados>();
-                var vacinadosNovos = new List<Vacinados>();
-
                 foreach (var itemCSV in vacinadosCSV)
                 {
                     var vacinado = new Vacinados();
@@ -68,9 +65,13 @@ namespace WebMVC.Controllers
                     vacinado.GrupoDeAtendimento = itemCSV.GrupoDeAtendimento;
 
                     var vacinadoBanco = _vacinadosRepositorio.GetPorCNSouCPF(itemCSV.Pessoa.CNS, itemCSV.Pessoa.CPF);
-                    if (vacinadoBanco != null)
+                    var vacinadoJaEstaCadastradoNoBanco  = vacinadoBanco != null;
+                    //1 = 1ª dose; 2 = 2ª dose (...); dose = dose única;
+                    var doseCadastradaNoBanco = vacinadoBanco.Doses.Any(x => x.NumeroDose == itemCSV.Dose.NumeroDose || itemCSV.Dose.DescricaoDose.ToLower() == "dose");
+
+                    if (vacinadoJaEstaCadastradoNoBanco)
                     {
-                        if (!vacinadoBanco.Doses.Any(x => x.NumeroDose == itemCSV.Dose.NumeroDose))
+                        if (!doseCadastradaNoBanco)
                         {
                             vacinadoBanco.Doses.Add(itemCSV.Dose);
                             _vacinadosRepositorio.Atualizar(vacinadoBanco);
