@@ -33,6 +33,10 @@ namespace WebMVC
             {
                 return new VacinadosRepositorio(connString, database);
             });
+            services.AddSingleton<IEstatisticaRepositorio, EstatisticaRepositorio>((provider) =>
+            {
+                return new EstatisticaRepositorio(connString, database);
+            });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
