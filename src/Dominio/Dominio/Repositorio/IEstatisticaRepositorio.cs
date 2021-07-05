@@ -7,5 +7,6 @@ namespace Dominio.Repositorio
     {
         Task<int> TotalPorSexoImunizado(string sexo);
 
+        Task<int> TotalImunizado();
     }
 }

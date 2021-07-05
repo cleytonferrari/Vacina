@@ -15,6 +15,13 @@ namespace MongoDb
 
         }
 
+        public Task<int> TotalImunizado()
+        {
+            var data = _collection.AsQueryable().Where(x =>
+                x.Doses.Any(y => y.NumeroDose == "2") || x.Doses.Any(y => y.NumeroDose == "8")
+            ).CountAsync();
+            return data;
+        }
 
         public Task<int> TotalPorSexoImunizado(string sexo)
         {
