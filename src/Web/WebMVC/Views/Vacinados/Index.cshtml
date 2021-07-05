@@ -15,32 +15,31 @@
     </div>
     <div class="col-auto">
         <div class="page-utilities">
-            <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
+            <div class="row justify-content-start justify-content-md-end align-items-center">
                 <div class="col-auto">
-                    <form class="table-search-form row gx-2 align-items-center" action="" method="get">
-                        <div class="col-auto">
+                    <form class="row gx-2 align-items-center" action="" method="get">
+                        <div class="col-12 col-lg-4 col-md-6 g-2">
                             <input type="text" id="busca" name="busca" class="form-control search-input" value="@Context.Request.Query["busca"]" placeholder="Procurar">
                         </div>
-                        <div class="col-auto">
-                            <select class="form-select w-auto" name="dose" id="dose">
+                        <div class="col-12 col-lg-4 col-md-6 g-2">
+                            @Html.DropDownList("grupo", new SelectList(Model.GrupoDeAtendimento, "Nome", "Nome"), "", new { @class = "form-select", placeholder = "Grupo de Atendimento" })
+                        </div>
+                        <div class="col-8 col-lg-2 g-2">
+                            <select class="form-select col-12" name="dose" id="dose">
                                 <option value="" disabled selected>Dose</option>
                                 <option value="1">1ª Dose</option>
                                 <option value="2">2ª Dose</option>
                                 <option value="8">Dose Única</option>
                             </select>
                         </div>
-
-                        <div class="col-auto">
-                            @Html.DropDownList("grupo", new SelectList(Model.GrupoDeAtendimento, "Nome", "Nome"), "", new { @class = "form-select", placeholder = "Grupo de Atendimento" })
-                        </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn app-btn-secondary">Procurar</button>
+                        <div class="col-4 col-lg-2 g-2">
+                            <button type="submit" class="btn app-btn-secondary col-12 col-lg-8">Procurar</button>
                         </div>
                     </form>
 
                 </div><!--//col-->
 
-                <div class="col-auto">
+                <div class="col-auto gy-2">
                     <a class="btn app-btn-secondary" href="#">
                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
@@ -56,7 +55,7 @@
 </div><!--//row-->
 
 
-<nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+<nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row">
     <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">Todos</a>
 
 </nav>
