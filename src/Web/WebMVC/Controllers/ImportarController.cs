@@ -65,12 +65,13 @@ namespace WebMVC.Controllers
                     vacinado.GrupoDeAtendimento = itemCSV.GrupoDeAtendimento;
 
                     var vacinadoBanco = _vacinadosRepositorio.GetPorCNSouCPF(itemCSV.Pessoa.CNS, itemCSV.Pessoa.CPF);
-                    var vacinadoJaEstaCadastradoNoBanco  = vacinadoBanco != null;
-                    //1 = 1ª dose; 2 = 2ª dose (...); dose = dose única;
-                    var doseCadastradaNoBanco = vacinadoBanco.Doses.Any(x => x.NumeroDose == itemCSV.Dose.NumeroDose || itemCSV.Dose.DescricaoDose.ToLower() == "dose");
+                    var vacinadoJaEstaCadastradoNoBanco = vacinadoBanco != null;
 
                     if (vacinadoJaEstaCadastradoNoBanco)
                     {
+                        //1 = 1ª dose; 2 = 2ª dose (...); dose = dose única;
+                        var doseCadastradaNoBanco = vacinadoBanco.Doses.Any(x => x.NumeroDose == itemCSV.Dose.NumeroDose || itemCSV.Dose.DescricaoDose.ToLower() == "dose");
+
                         if (!doseCadastradaNoBanco)
                         {
                             vacinadoBanco.Doses.Add(itemCSV.Dose);
