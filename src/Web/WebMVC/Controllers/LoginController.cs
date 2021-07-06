@@ -1,27 +1,27 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Dominio.Acesso;
+using Dominio.Base;
 using Dominio.Repositorio;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebMVC.Models;
-using X.PagedList;
 
 namespace WebMVC.Controllers
 {
     public class LoginController : Controller
     {
         private readonly ILogger<LoginController> _logger;
-        
-        public LoginController(ILogger<LoginController> logger)
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
+
+        public LoginController(ILogger<LoginController> logger, IUsuarioRepositorio usuarioRepositorio)
         {
             _logger = logger;
-            
+            _usuarioRepositorio = usuarioRepositorio;
+
         }
 
         [HttpGet("login")]
@@ -36,14 +36,36 @@ namespace WebMVC.Controllers
         {
             returnUrl = string.IsNullOrEmpty(returnUrl) ? "/importar" : returnUrl;
             ViewData["ReturnUrl"] = returnUrl;
-            if (usuario == "admin" && senha == "admin")
+
+            //var user = new Usuario()
+            //{
+            //    Nome = "Cleyton",
+            //    Login = "cleytonferrari@gmail.com",
+            //    Senha = "171099",
+            //    Permissoes = new List<Permissao>
+            //    {
+            //        new Permissao{Chave="administrador",Descricao="Administrador do Sistema"}
+            //    }
+            //};
+            //var retorno = user.Valido();
+            //_usuarioRepositorio.Inserir(user);
+
+            //
+            var usuarioLogado = await _usuarioRepositorio.Logar(usuario, senha);
+            if (usuarioLogado is not null)
             {
                 var claims = new List<Claim>
                 {
-                    new Claim("usario", usuario),
-                    new Claim(ClaimTypes.NameIdentifier, usuario),
-                    new Claim(ClaimTypes.Name, "Administrador"),
+                    new Claim(ClaimTypes.Name, usuarioLogado.Nome),
+                    new Claim(ClaimTypes.NameIdentifier, usuarioLogado.Login),
+                    new Claim(ClaimTypes.Email, usuarioLogado.Email)
                 };
+                
+                //roles
+                foreach (var permissao in usuarioLogado.Permissoes)
+                {
+
+                }
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);

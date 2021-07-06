@@ -27,6 +27,12 @@ namespace MongoDb
             return data;
         }
 
+        public Task<Usuario> Logar(string login, string senha)
+        {
+            var data = _collection.AsQueryable().FirstOrDefaultAsync(x => x.Login == login && x.Senha == senha);
+            return data;
+        }
+
         public bool LoginDuplicado(string login)
         {
             return GetPorLogin(login).Result is not null; ;

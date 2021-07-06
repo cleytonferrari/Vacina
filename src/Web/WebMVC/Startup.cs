@@ -37,6 +37,10 @@ namespace WebMVC
             {
                 return new EstatisticaRepositorio(connString, database);
             });
+            services.AddSingleton<IUsuarioRepositorio, UsuarioRepositorio>((provider) =>
+            {
+                return new UsuarioRepositorio(connString, database);
+            });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>
@@ -63,6 +67,7 @@ namespace WebMVC
             app.UseStaticFiles();
 
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

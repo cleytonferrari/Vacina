@@ -12,5 +12,7 @@ namespace Dominio.Repositorio
 
         bool LoginDuplicado(string login);
 
+        Task<Usuario> Logar(string login, string senha);
+
     }
 }
