@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Dominio.Repositorio
 {
-    public interface IRepositorio<T> where T : EntidadeBase
+    public interface IRepositorio<T> where T : Entidade
     {
         Task<T> BuscarPorId(string id);
 

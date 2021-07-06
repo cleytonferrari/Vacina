@@ -7,7 +7,7 @@ using Dominio.Repositorio;
 
 namespace MongoDb
 {
-    public class Repositorio<T> : IRepositorio<T> where T : EntidadeBase
+    public class Repositorio<T> : IRepositorio<T> where T : Entidade
     {
         private readonly Contexto<T> _contexto;
         protected readonly IMongoCollection<T> _collection;

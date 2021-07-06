@@ -3,7 +3,7 @@ using System;
 
 namespace Dominio
 {
-    public class Pessoa : EntidadeBase
+    public class Pessoa : Entidade
     {
         public string CNS { get; set; }//paciente_cns
         public string CPF { get; set; }//paciente_cpf

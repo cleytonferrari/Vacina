@@ -4,7 +4,7 @@ using MongoDB.Driver;
 
 namespace MongoDb
 {
-    public class Contexto<T> where T : EntidadeBase
+    public class Contexto<T> where T : Entidade
     {
         private IMongoDatabase Database { get; set; }
         public MongoClient MongoClient { get; set; }

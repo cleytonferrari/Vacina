@@ -2,6 +2,8 @@
 using Dominio.Repositorio;
 using MongoDB.Driver;
 using System.Collections.Generic;
+using MongoDB.Driver.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MongoDb
@@ -12,10 +14,10 @@ namespace MongoDb
         {
 
         }
-        public async Task<IEnumerable<Pessoa>> GetPorNome(string nome)
+        public Task<List<Pessoa>> GetPorNome(string nome)
         {
-            var data = await _collection.FindAsync(Builders<Pessoa>.Filter.Eq("Nome", nome));
-            return data.ToList();
+            var data = _collection.AsQueryable().Where(x => x.Nome.ToLower() == nome.ToLower()).ToListAsync();
+            return data;
         }
     }
 }

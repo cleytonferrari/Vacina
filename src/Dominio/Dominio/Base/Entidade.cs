@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Dominio.Base;
+using System;
 
 namespace Dominio
 {
-    public class EntidadeBase
+    public class Entidade
     {
         private string id;
 

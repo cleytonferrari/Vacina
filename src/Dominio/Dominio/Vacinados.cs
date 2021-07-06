@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Dominio
 {
-    public class Vacinados : EntidadeBase
+    public class Vacinados : Entidade
     {
         public Vacinados()
         {

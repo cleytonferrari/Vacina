@@ -2,7 +2,7 @@ using System;
 
 namespace Dominio
 {
-    public class Dose : EntidadeBase
+    public class Dose : Entidade
     {
         public Vacina Vacina { get; set; }
         public DateTime DataAplicacao { get; set; }//vacina_dataAplicacao;
