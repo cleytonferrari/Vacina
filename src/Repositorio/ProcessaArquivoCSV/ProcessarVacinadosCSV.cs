@@ -21,7 +21,7 @@ namespace RepositorioCSV
                     return csv.GetRecords<VacinadosViewModel>().ToList();
                 }
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
                 //TODO: adicionar log pra exception
                 return null;

@@ -64,7 +64,7 @@ namespace WebMVC.Controllers
                     vacinado.Pessoa = itemCSV.Pessoa;
                     vacinado.GrupoDeAtendimento = itemCSV.GrupoDeAtendimento;
 
-                    var vacinadoBanco = _vacinadosRepositorio.GetPorCNSouCPF(itemCSV.Pessoa.CNS, itemCSV.Pessoa.CPF);
+                    var vacinadoBanco = await _vacinadosRepositorio.GetPorCNSouCPF(itemCSV.Pessoa.CNS, itemCSV.Pessoa.CPF);
                     var vacinadoJaEstaCadastradoNoBanco = vacinadoBanco != null;
 
                     if (vacinadoJaEstaCadastradoNoBanco)
