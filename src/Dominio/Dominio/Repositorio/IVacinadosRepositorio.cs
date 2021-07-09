@@ -7,7 +7,7 @@ namespace Dominio.Repositorio
     {
         Task<List<Vacinados>> GetPorNome(string nome);
 
-        Vacinados GetPorCNSouCPF(string cns, string cpf);
+        Task<Vacinados> GetPorCNSouCPF(string cns, string cpf);
 
         Task<List<GrupoDeAtendimento>> GetGruposDeAtendimento();
 
