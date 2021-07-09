@@ -40,9 +40,10 @@
                                     <a class="dropdown-toggle" id="user-dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><img src="~/portal-theme-bs5-v2/images/user.png" alt="perfil do usuário"></a>
                                     <ul class="dropdown-menu" aria-labelledby="user-dropdown-toggle">
                                         <li><a class="dropdown-item" href="">@User.Identity.Name</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Importar" asp-action="Index">Importar</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="importar" asp-action="Index">Importar</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="inconsistencia" asp-action="Index">Inconsistências</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="Login" asp-action="Logout">Sair</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="login" asp-action="Logout">Sair</a></li>
                                     </ul>
                                 </div><!--//app-user-dropdown-->
                             }

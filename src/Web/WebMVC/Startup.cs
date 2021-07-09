@@ -37,6 +37,10 @@ namespace WebMVC
             {
                 return new EstatisticaRepositorio(connString, database);
             });
+            services.AddSingleton<IInconsistenciaRepositorio, InconsistenciaRepositorio>((provider) =>
+            {
+                return new InconsistenciaRepositorio(connString, database);
+            });
             services.AddSingleton<IUsuarioRepositorio, UsuarioRepositorio>((provider) =>
             {
                 return new UsuarioRepositorio(connString, database);

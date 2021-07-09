@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Inconsistência";
+}
+@using Dominio
+
+@model WebMVC.Controllers.ListarInconsistenciaViewModel
+@using X.PagedList.Mvc.Core;
+@using X.PagedList; @*import this so we can cast our list to IPagedList (only necessary because ViewBag is dynamic)*@
+@using X.PagedList.Mvc.Core.Fluent
+@using X.PagedList.Web.Common
+
+<div class="row g-3 mb-4 align-items-center justify-content-between">
+    <div class="col-auto">
+        <h1 class="app-page-title mb-0">Relação das Inconsistências</h1>
+    </div>
+    
+</div><!--//row-->
+<nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row">
+    <span class="flex-sm-fill text-sm-center nav-link active">@Model.TituloPagina</span>
+</nav>
+<div class="tab-content" id="orders-table-tab-content">
+    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
+        <div class="app-card app-card-orders-table shadow-sm mb-5">
+            <div class="app-card-body">
+                <div class="table-responsive">
+                    <table class="table app-table-hover mb-0 text-left">
+                        <thead>
+                            <tr>
+                                <th class="cell">Nome</th>
+                                <th class="cell">Sexo</th>
+                                <th class="cell" label="Data nascimento">Nascimento</th>
+                                <th class="cell">Grupo</th>
+                                <th class="cell">Dose - Lote - Data aplicação - Vacina</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Vacinados)
+                            {
+                                <tr>
+                                    <td class="cell">@item.Pessoa.Nome</td>
+                                    <td class="cell">@item.Pessoa.Sexo</td>
+                                    <td class="cell">@item.Pessoa.DataNascimento.ToString("**/**/yyyy")</td>
+                                    <td class="cell">@item.GrupoDeAtendimento.Nome</td>
+
+                                    <td class="cell">
+                                        @foreach (var dose in item.Doses.OrderBy(x => x.NumeroDose))
+                                        {
+                                            <span class="cell-data"><span class="badge bg-success">@dose.DescricaoDose</span> @dose.Lote - @dose.DataAplicacao.ToString("dd/MM/yy")</span><span class="note">@dose.Vacina.Nome</span>
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div><!--//table-responsive-->
+
+            </div><!--//app-card-body-->
+        </div><!--//app-card-->
+
+
+        @Html.PagedListPager(Model.Vacinados, pagina => Url.Action("listar",
+            new
+            {
+                pagina = pagina,
+                opcao = Context.Request.Query["opcao"]
+
+            }), new PagedListRenderOptions
+            {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                UlElementClasses = new string[] { "pagination", "justify-content-center" },
+                ContainerDivClasses = new string[] { "app-pagination" },
+
+            })
+
+    </div><!--//tab-pane-->
+</div><!--//tab-content-->
