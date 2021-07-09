@@ -21,9 +21,9 @@ namespace MongoDb
             return data;
         }
 
-        public Vacinados GetPorCNSouCPF(string cns, string cpf)
+        public Task<Vacinados> GetPorCNSouCPF(string cns, string cpf)
         {
-            var data = _collection.AsQueryable().FirstOrDefault(x => x.Pessoa.CNS == cns || x.Pessoa.CPF == cpf);
+            var data = _collection.AsQueryable().FirstOrDefaultAsync(x => x.Pessoa.CNS == cns || x.Pessoa.CPF == cpf);
             return data;
         }
 
