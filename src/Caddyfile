@@ -1,0 +1,22 @@
+https://vacinometro.meusite.com.br:443 { 
+  log { 
+    level INFO 
+    output file /data/access.log { 
+      roll_size 10MB
+      roll_keep 10 
+    } 
+  } 
+ 
+  # Use the ACME HTTP-01 challenge to get a cert for the configured domain. 
+  tls seu@email.com 
+ 
+  encode gzip 
+ 
+  # Notifications redirected to the WebSocket server 
+  reverse_proxy /notifications/hub vacinaapp:3012 
+ 
+
+  reverse_proxy vacinaapp:80 { 
+       header_up X-Real-IP {remote_host} 
+  } 
+}

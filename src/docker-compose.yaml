@@ -5,7 +5,7 @@ services:
         image: cleytonferrari/appvacina:latest
         container_name: appvacina
         ports:
-            - 80:80
+            - 8080:80
         depends_on: 
             - 'mongodb'
         networks:
@@ -21,6 +21,22 @@ services:
           - '27017:27017'
         networks:
             - vacina-network
+            
+    caddy: 
+        image: caddy:2 
+        container_name: caddy
+        restart: always 
+        depends_on: 
+            - 'vacinaapp'
+        ports: 
+            - 80:80 
+            - 443:443 
+        volumes: 
+            - ./Caddyfile:/etc/caddy/Caddyfile:ro 
+            - ./caddy-config:/config 
+            - ./caddy-data:/data 
+        networks:
+            - vacina-network
     
 networks:
     vacina-network:
@@ -32,6 +48,7 @@ volumes:
             type: none
             device: ./database #mkdir -pv database
             o: bind
+            
 
 ##### Para fazer backup e restore do banco Vacina no MongoDb
 ## backup ( será salvo no volume mongodata, que esta mapeado para ./database )
