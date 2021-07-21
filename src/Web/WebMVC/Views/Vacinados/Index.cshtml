@@ -71,6 +71,7 @@
                                 <th class="cell">Nome</th>
                                 <th class="cell">Sexo</th>
                                 <th class="cell" label="Data nascimento">Nascimento</th>
+                                <th class="cell">Residente em</th>
                                 <th class="cell">Grupo</th>
                                 <th class="cell">Dose - Lote - Data aplicação - Vacina</th>
                             </tr>
@@ -82,7 +83,8 @@
                                     <td class="cell">@item.Pessoa.Nome</td>
                                     <td class="cell">@item.Pessoa.Sexo</td>
                                     <td class="cell">@item.Pessoa.DataNascimento.ToString("**/**/yyyy")</td>
-                                    <td class="cell">@item.GrupoDeAtendimento.Nome</td>
+                                    <td class="cell">@item.Pessoa.Endereco?.Municipio / @item.Pessoa.Endereco?.UF</td>
+                                    <td class="cell">@item.GrupoDeAtendimento?.Nome</td>
 
                                     <td class="cell">
                                         @foreach (var dose in item.Doses.OrderBy(x => x.NumeroDose))

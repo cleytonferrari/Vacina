@@ -5,7 +5,7 @@ namespace RepositorioCSV
 {
     public class PessoaMap : ClassMap<Pessoa>
     {
-        
+
         public PessoaMap()
         {
             Map(m => m.CNS).Name("paciente_cns");
@@ -15,6 +15,7 @@ namespace RepositorioCSV
             Map(m => m.NomeMae).Name("paciente_nome_mae");
             //TODO: Poder escolher a formatação da data, caso o arquivo venha com data em outro formato
             Map(m => m.DataNascimento).Name("paciente_dataNascimento").TypeConverterOption.Format("yyyy-MM-dd");
+            References<EnderecoMap>(m => m.Endereco);
         }
 
     }

@@ -1,6 +1,4 @@
-using CsvHelper.Configuration;
 using Dominio;
-using System.Collections.Generic;
 
 namespace RepositorioCSV
 {

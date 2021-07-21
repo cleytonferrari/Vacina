@@ -12,5 +12,7 @@ namespace Dominio
         public string NomeMae { get; set; }//paciente_nome_mae
         public DateTime DataNascimento { get; set; }//paciente_dataNascimento
 
+        public Endereco Endereco { get; set; }
+
     }
 }
