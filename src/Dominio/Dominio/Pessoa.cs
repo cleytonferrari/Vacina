@@ -1,4 +1,4 @@
-﻿using Dominio.Repositorio;
+﻿using Dominio.Extensions;
 using System;
 
 namespace Dominio
@@ -13,6 +13,14 @@ namespace Dominio
         public DateTime DataNascimento { get; set; }//paciente_dataNascimento
 
         public Endereco Endereco { get; set; }
+
+        public string NomeAbreviado
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(Nome) ? Nome.SomenteAsIniciaisDoNome() : string.Empty;
+            }
+        }
 
     }
 }
