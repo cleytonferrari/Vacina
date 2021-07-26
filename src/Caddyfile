@@ -1,3 +1,6 @@
+#https://caddyserver.com/docs/caddyfile/concepts
+
+
 https://vacinometro.meusite.com.br:443 { 
   log { 
     level INFO 
