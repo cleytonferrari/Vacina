@@ -4,28 +4,46 @@ services:
     vacinaapp:
         image: cleytonferrari/appvacina:latest
         container_name: appvacina
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 1G
+                reservations:
+                    memory: 512M
         ports:
             - 8080:80
         depends_on: 
             - 'mongodb'
         networks:
             - vacina-network
-            
+
     mongodb:
         image: "mongo:4.4"
         container_name: mongodbvacina
-        restart: unless-stopped
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 2G
+                reservations:
+                    memory: 512M
         volumes:
           - 'mongodata:/data'
         ports:
           - '27017:27017'
         networks:
             - vacina-network
-            
     caddy: 
         image: caddy:2 
         container_name: caddy
-        restart: always 
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 256M
+                reservations:
+                    memory: 128M
         depends_on: 
             - 'vacinaapp'
         ports: 
@@ -48,10 +66,3 @@ volumes:
             type: none
             device: ./database #mkdir -pv database
             o: bind
-            
-
-##### Para fazer backup e restore do banco Vacina no MongoDb
-## backup ( será salvo no volume mongodata, que esta mapeado para ./database )
-#> docker exec -it mongodbvacina mongodump --db Vacina --out /data/backups
-## restore
-#> docker exec -it mongodbvacina mongorestore /data/backups --drop

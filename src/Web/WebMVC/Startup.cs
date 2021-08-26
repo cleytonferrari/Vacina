@@ -26,8 +26,8 @@ namespace WebMVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connString = Configuration.GetConnectionString("connString");
-            var database = Configuration.GetConnectionString("database");
+            var connString = Configuration["CONN_STRING"];
+            var database = Configuration["CONN_DATABASE"];
             
             services.AddSingleton<IVacinadosRepositorio, VacinadosRepositorio>((provider) =>
             {
