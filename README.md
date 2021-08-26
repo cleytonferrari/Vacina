@@ -15,7 +15,7 @@ docker run -d -p 8080:80 vacina
 *Pronto! Agora basta acessar o endereço em seu navegador http://localhost:8080/*
 
 ## Container Docker
-Esta disponível uma [imagem docker](https://hub.docker.com/r/cleytonferrari/appvacina) do projeto no Docker Hub, se você tem [instalado](https://docs.docker.com/docker-for-windows/install/) docker. Execute o comando asseguir no consolole do seu docker.
+Esta disponível uma [imagem docker](https://hub.docker.com/r/cleytonferrari/appvacina) do projeto no Docker Hub, se você tem [instalado](https://docs.docker.com/docker-for-windows/install/) docker. Execute o comando asseguir no console do seu docker.
 
 ```powershell
 docker run -d -p 8080:80 cleytonferrari/appvacina
@@ -23,6 +23,45 @@ docker run -d -p 8080:80 cleytonferrari/appvacina
 
 *Pronto! Agora basta acessar o endereço em seu navegador http://localhost:8080/*
 
+## Docker Compose - Ambiente de Produção - Linux
+Para disponibilizar o sistema de vacina em uma ambiente de produção `BETA`, siga os passoa abaixo:
+
+1. Você deve ter um servidor rodando alguma versão do Linux, recomendado o [Ubuntu Server](https://ubuntu.com/download/server), com a [versão mais recente do docker](https://docs.docker.com/engine/install/ubuntu/).
+2. Preparar a estrutura de pastas para a instação. Criar uma pasta raiz para o sistema `vacinometro` e uma pasta `database` para o volume do docker *(local onde ficara o banco de dados)*.
+
+**Criando a pasta raiz da instalação**
+```powershell
+mkdir vacinometro
+```
+```powershell
+cd vacinometro
+```
+**Dentro da pasta raiz, criado uma pasta para amarzenar o banco de dados**
+```powershell
+mkdir -pv database
+```
+3. Dentro da pasta `vacinometro`, baixe o arquivo [docker-compose.yaml](https://raw.githubusercontent.com/cleytonferrari/Vacina/main/src/docker-compose.yaml)
+```
+wget https://raw.githubusercontent.com/cleytonferrari/Vacina/main/src/docker-compose.yaml
+```
+5. Agora baixe o arquivo de configuração do [Caddy](https://caddyserver.com/) (Proxy reverso para adicionar https ao servidor)
+```
+wget https://raw.githubusercontent.com/cleytonferrari/Vacina/main/src/Caddyfile
+```
+*Observação: Você deve editar o arquivo baixado, adicionando o dominio onde ficara hospedado o serviço do aplicativo vacina e seu email.*
+
+6. Agora basta rodar o comando do docker abaixo, para inicializar o aplicativo **Vacina**.
+
+```powershell
+docker-compose up -d
+```
+
+*Pronto! Agora basta acessar o endereço local no seu servidor https://localhost ou o dominio configurado no arquivo do [CaddyFile](https://github.com/cleytonferrari/Vacina/blob/main/src/Caddyfile).*
+
+**Isto ira criar 3 containers do docker:**
+* mondodbvacina (servidor do MondoDb)
+* appvacina (aplicativo Vacina)
+* caddy (proxy reverso para adicionar https ao servidor)
 
 > ### DISCLAIMER
 >
