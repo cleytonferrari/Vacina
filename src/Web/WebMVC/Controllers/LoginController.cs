@@ -28,6 +28,28 @@ namespace WebMVC.Controllers
         public IActionResult Login(string returnUrl)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
+            var existe = _usuarioRepositorio.ExisteUsuarioNoBanco();
+            if(!existe){
+                var user = new Usuario()
+                            {
+                                Nome = "Administrador",
+                                Login = "admin",
+                                Senha = "Admin@171099",
+                                Email = "admin@email.com",
+                                Permissoes = new List<Permissao>
+                                {
+                                    new Permissao{Chave="administrador",Descricao="Administrador do Sistema"}
+                                }
+                            };
+                //var retorno = user.Valido();
+                _usuarioRepositorio.Inserir(user);
+                
+                TempData["Erro"] = "Neste primeiro acesso use: admin, com a senha Admin@171099";
+                return View("login");
+            }
+
+            
             return View();
         }
 
@@ -37,20 +59,7 @@ namespace WebMVC.Controllers
             returnUrl = string.IsNullOrEmpty(returnUrl) ? "/importar" : returnUrl;
             ViewData["ReturnUrl"] = returnUrl;
 
-            //var user = new Usuario()
-            //{
-            //    Nome = "Cleyton",
-            //    Login = "cleytonferrari@gmail.com",
-            //    Senha = "171099",
-            //    Permissoes = new List<Permissao>
-            //    {
-            //        new Permissao{Chave="administrador",Descricao="Administrador do Sistema"}
-            //    }
-            //};
-            //var retorno = user.Valido();
-            //_usuarioRepositorio.Inserir(user);
-
-            //
+            
             var usuarioLogado = await _usuarioRepositorio.Logar(usuario, senha);
             if (usuarioLogado is not null)
             {

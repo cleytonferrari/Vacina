@@ -5,20 +5,32 @@ Aplicativo para criar o vacinômetro, baseado nos arquivos exportados do [eSUS N
 
 ## Começando
 
-Veja se você tem [instalado](https://docs.docker.com/docker-for-windows/install/) docker. Após isto, você pode rodar o seguinte comando na pasta **/src/** para iniciar com o aplicativo `Vacina` imediatamente.
+Primeiro precisamos clonar o repositorio. *(Você deve ter o [Git](https://git-scm.com/book/pt-br/v2/Come%C3%A7ando-Instalando-o-Git) instalado antes de continuar)*.
+
+Em escolha uma pasta qualquer do seu computador e execute o comando abaixo:
+
+```
+git clone https://github.com/cleytonferrari/Vacina.git
+
+cd Vacina/src
+```
+**Pronto! Você já possui uma copia do código.**
+
+Para prosseguir, veja se você tem [instalado](https://docs.docker.com/docker-for-windows/install/) docker. Após isto, você pode rodar o seguinte comando na pasta **Vacina/src/** para iniciar com o aplicativo `Vacina` imediatamente.
 
 ```powershell
 docker build . -t vacina
-docker run -d -p 8080:80 vacina
+
+docker network create vacina-net
+
+docker run --rm -d -p 27017:27017 --net vacina-net --name mongodb-vacina mongo
+
+docker run --rm -d -p 8080:80 --net vacina-net --name appvacina vacina
 ```
 
 *Pronto! Agora basta acessar o endereço em seu navegador http://localhost:8080/*
 
-*Nota 1: Você deve ter o MongoDb instalado no seu sistema e configurar as variáveis de ambiente no [appsettings.json](https://github.com/cleytonferrari/Vacina/blob/main/src/Web/WebMVC/appsettings.json)*
-```json
-"CONN_STRING":"mongodb://localhost:27017",
-"CONN_DATABASE":"Vacina"
-```
+*Para **Administrar** o sistema e importar os dados acesse http://localhost:8080/login e siga as orientações da tela.*
 
 ## Container Docker
 Esta disponível uma [imagem docker](https://hub.docker.com/r/cleytonferrari/appvacina) do projeto no Docker Hub, se você tem [instalado](https://docs.docker.com/docker-for-windows/install/) docker. Execute o comando asseguir no console do seu docker.

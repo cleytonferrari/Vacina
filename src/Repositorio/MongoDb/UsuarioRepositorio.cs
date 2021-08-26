@@ -35,7 +35,12 @@ namespace MongoDb
 
         public bool LoginDuplicado(string login)
         {
-            return GetPorLogin(login).Result is not null; ;
+            return GetPorLogin(login).Result is not null;
+        }
+
+        public bool ExisteUsuarioNoBanco()
+        {
+            return _collection.AsQueryable().Count() > 0;
         }
     }
 }
