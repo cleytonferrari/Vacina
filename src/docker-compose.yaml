@@ -1,9 +1,9 @@
 version: '3.8' #https://docs.docker.com/compose/compose-file/compose-versioning/
 
 services:
-    vacinaapp:
+    vacinaapp_altoparaiso:
         image: cleytonferrari/appvacina:latest
-        container_name: appvacina
+        container_name: appvacina_altoparaiso
         restart: always
         deploy:
             resources:
@@ -17,6 +17,9 @@ services:
             - 'mongodb'
         networks:
             - vacina-network
+        environment: 
+            - CONN_STRING=mongodb://mongodbvacina:27017
+            - CONN_DATABASE=VacinaAltoParaiso
 
     mongodb:
         image: "mongo:4.4"
@@ -45,7 +48,7 @@ services:
                 reservations:
                     memory: 128M
         depends_on: 
-            - 'vacinaapp'
+            - 'vacinaapp_altoparaiso'
         ports: 
             - 80:80 
             - 443:443 

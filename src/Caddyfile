@@ -1,25 +1,23 @@
-#https://caddyserver.com/docs/caddyfile/concepts
-
-
-https://vacinometro.meusite.com.br:443 { 
+https://vacinometro.meusite.com:443 { 
   log { 
     level INFO 
-    output file /data/access.log { 
+    output file /data/accessVacinometro.log { 
       roll_size 10MB
       roll_keep 10 
     } 
   } 
  
   # Use the ACME HTTP-01 challenge to get a cert for the configured domain. 
-  tls seu@email.com 
+  tls seu@email.com
  
   encode gzip 
  
   # Notifications redirected to the WebSocket server 
-  reverse_proxy /notifications/hub vacinaapp:3012 
+  reverse_proxy /notifications/hub vacinaapp_altoparaiso:3012 
  
 
-  reverse_proxy vacinaapp:80 { 
+  reverse_proxy vacinaapp_altoparaiso:80 { 
        header_up X-Real-IP {remote_host} 
   } 
 }
+
