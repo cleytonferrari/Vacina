@@ -14,6 +14,12 @@ docker run -d -p 8080:80 vacina
 
 *Pronto! Agora basta acessar o endereço em seu navegador http://localhost:8080/*
 
+*Nota 1: Você deve ter o MongoDb instalado no seu sistema e configurar as variáveis de ambiente no [appsettings.json](https://github.com/cleytonferrari/Vacina/blob/main/src/Web/WebMVC/appsettings.json)*
+```json
+"CONN_STRING":"mongodb://localhost:27017",
+"CONN_DATABASE":"Vacina"
+```
+
 ## Container Docker
 Esta disponível uma [imagem docker](https://hub.docker.com/r/cleytonferrari/appvacina) do projeto no Docker Hub, se você tem [instalado](https://docs.docker.com/docker-for-windows/install/) docker. Execute o comando asseguir no console do seu docker.
 
@@ -67,6 +73,14 @@ docker-compose up -d
 >
 > **IMPORTANTE:** O estado atual deste aplicativo é **BETA**. Portanto, algumas áreas podem ser melhoradas e alteradas significativamente ao refatorar o código atual e implementar novos recursos. Feedback com melhorias e solicitações de pull da comunidade serão muito apreciados e aceitos.
 
+## Em Produção
+
+Você pode acessar os sites mencionados abaixo para ver o sistema em produção:
+
+* Prefeitura de Alto Paraíso/RO - https://vacinometro.altoparaiso.ro.gov.br
+* Prefeitura de Monte Negro/RO - https://vacinometro.montenegro.ro.gov.br
+
+****
 ## Feedback e Pull Requests
 
 Se você gostaria de ver qualquer cenário específico implementado ou melhorado acesse a [Sessão de ISSUES](https://github.com/cleytonferrari/vacina/issues). Além disso, fique à vontade para discutir qualquer assunto atual.
