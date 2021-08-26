@@ -20,7 +20,9 @@
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "CONN_STRING":"mongodb://localhost:27017",
+                "CONN_DATABASE":"VacinaLocal"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
