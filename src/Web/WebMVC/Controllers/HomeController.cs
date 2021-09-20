@@ -33,7 +33,7 @@ namespace WebMVC.Controllers
                 TotalPrimeiraDose = await tPrimeiraDose,
                 TotalSegundaDose = await tSegundaDose,
                 TotalDoseUnica = tJanssen.Count(),
-                Municipio = await _municipioRepositorio.GetMunicipio()
+                Municipio = await _municipioRepositorio.GetMunicipio() ?? new Municipio()
             };
 
             return View(viewModel);

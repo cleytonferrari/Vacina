@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Dominio;
 using Dominio.Repositorio;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -34,7 +35,7 @@ namespace WebMVC.Controllers
         {
             var tMasculino = _estatisticaRepositorio.TotalPorSexoImunizado("M");
             var tFeminino = _estatisticaRepositorio.TotalPorSexoImunizado("F");
-          
+
             var viewModel = new List<ChartDadosViewModel>
             {
                 new ChartDadosViewModel { Label = "Masculino", Total = await tMasculino },
@@ -50,7 +51,7 @@ namespace WebMVC.Controllers
             var tImunizados = _estatisticaRepositorio.TotalImunizado();
 
             //buscar do ibge https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2020/variaveis/9324?localidades=N6[1100403]
-            var municipio = await _municipioRepositorio.GetMunicipio();
+            var municipio = await _municipioRepositorio.GetMunicipio() ?? new Municipio();
             var tPopulacao = municipio.PopulacaoIBGE;
 
             var viewModel = new List<ChartDadosViewModel>
