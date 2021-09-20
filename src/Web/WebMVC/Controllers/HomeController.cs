@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Dominio;
 using Dominio.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,10 +13,12 @@ namespace WebMVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IVacinadosRepositorio _vacinadosRepositorio;
-        public HomeController(ILogger<HomeController> logger, IVacinadosRepositorio vacinadosRepositorio)
+        private IMunicipioRepositorio _municipioRepositorio;
+        public HomeController(ILogger<HomeController> logger, IVacinadosRepositorio vacinadosRepositorio, IMunicipioRepositorio municipioRepositorio)
         {
             _logger = logger;
             _vacinadosRepositorio = vacinadosRepositorio;
+            _municipioRepositorio = municipioRepositorio;
         }
 
         public async Task<IActionResult> Index()
@@ -29,7 +32,8 @@ namespace WebMVC.Controllers
             {
                 TotalPrimeiraDose = await tPrimeiraDose,
                 TotalSegundaDose = await tSegundaDose,
-                TotalDoseUnica = tJanssen.Count()
+                TotalDoseUnica = tJanssen.Count(),
+                Municipio = await _municipioRepositorio.GetMunicipio()
             };
 
             return View(viewModel);
@@ -46,5 +50,6 @@ namespace WebMVC.Controllers
         public int TotalPrimeiraDose { get; set; }
         public int TotalSegundaDose { get; set; }
         public int TotalDoseUnica { get; set; }
+        public Municipio Municipio { get; set; }
     }
 }

@@ -1,9 +1,6 @@
-﻿using Dominio.Repositorio;
-using System;
-
-namespace Dominio
+﻿namespace Dominio
 {
-    
+
     public class EstabelecimentoDeSaude : Entidade
     {
         public string Codigo { get; set; }//estabelecimento_valor

@@ -21,10 +21,12 @@ namespace WebMVC.Controllers
     {
         private readonly ILogger<DadosApiController> _logger;
         private IEstatisticaRepositorio _estatisticaRepositorio;
-        public DadosApiController(ILogger<DadosApiController> logger, IEstatisticaRepositorio estatisticaRepositorio)
+        private IMunicipioRepositorio _municipioRepositorio;
+        public DadosApiController(ILogger<DadosApiController> logger, IEstatisticaRepositorio estatisticaRepositorio, IMunicipioRepositorio municipioRepositorio)
         {
             _logger = logger;
             _estatisticaRepositorio = estatisticaRepositorio;
+            _municipioRepositorio = municipioRepositorio;
         }
 
         [Route("totalporsexo")]
@@ -46,9 +48,10 @@ namespace WebMVC.Controllers
         public async Task<IActionResult> GetTotalImunizado()
         {
             var tImunizados = _estatisticaRepositorio.TotalImunizado();
-            
+
             //buscar do ibge https://servicodados.ibge.gov.br/api/v3/agregados/6579/periodos/2020/variaveis/9324?localidades=N6[1100403]
-            var tPopulacao = 21847; 
+            var municipio = await _municipioRepositorio.GetMunicipio();
+            var tPopulacao = municipio.PopulacaoIBGE;
 
             var viewModel = new List<ChartDadosViewModel>
             {

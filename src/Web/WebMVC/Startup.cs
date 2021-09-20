@@ -45,6 +45,10 @@ namespace WebMVC
             {
                 return new UsuarioRepositorio(connString, database);
             });
+            services.AddSingleton<IMunicipioRepositorio, MunicipioRepositorio>((provider) =>
+            {
+                return new MunicipioRepositorio(connString, database);
+            });
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options =>

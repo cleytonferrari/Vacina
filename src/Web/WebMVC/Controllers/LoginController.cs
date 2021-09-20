@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Dominio;
 using Dominio.Acesso;
 using Dominio.Base;
 using Dominio.Repositorio;
@@ -16,12 +17,13 @@ namespace WebMVC.Controllers
     {
         private readonly ILogger<LoginController> _logger;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
+        private readonly IMunicipioRepositorio _municipioRepositorio;
 
-        public LoginController(ILogger<LoginController> logger, IUsuarioRepositorio usuarioRepositorio)
+        public LoginController(ILogger<LoginController> logger, IUsuarioRepositorio usuarioRepositorio, IMunicipioRepositorio municipioRepositorio)
         {
             _logger = logger;
             _usuarioRepositorio = usuarioRepositorio;
-
+            _municipioRepositorio = municipioRepositorio;
         }
 
         [HttpGet("login")]
@@ -44,6 +46,13 @@ namespace WebMVC.Controllers
                             };
                 //var retorno = user.Valido();
                 _usuarioRepositorio.Inserir(user);
+                //cria o municipio padrao
+                var municipio = new Municipio()
+                {
+                    Nome = "Alto Paraíso - RO",
+                    PopulacaoIBGE = 21847
+                };
+                _municipioRepositorio.Inserir(municipio);
                 
                 TempData["Erro"] = "Neste primeiro acesso use: admin, com a senha Admin@171099";
                 return View("login");
