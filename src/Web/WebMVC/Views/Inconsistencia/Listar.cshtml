@@ -47,7 +47,9 @@
                                 <td class="cell">
                                     @foreach (var dose in item.Doses.OrderBy(x => x.NumeroDose))
                                     {
-                                        <span class="cell-data"><span class="badge bg-success">@dose.DescricaoDose</span> @dose.Lote - @dose.DataAplicacao.ToString("dd/MM/yy")</span><span class="note">@dose.Vacina.Nome</span>
+                                        <span class="cell-data"><span class="badge bg-success">@dose.DescricaoDose</span> @dose.Lote - @dose.DataAplicacao.ToString("dd/MM/yy")</span>
+                                        <span class="note">@dose.Vacina.Nome</span>
+                                        <span class="note">@dose.EstabelecimentoDeSaude.Nome</span>
                                     }
                                 </td>
 

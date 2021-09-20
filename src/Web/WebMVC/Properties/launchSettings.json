@@ -1,4 +1,4 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
@@ -17,12 +17,14 @@
     },
     "WebMVC": {
       "commandName": "Project",
-      "dotnetRunMessages": "true",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:4001;http://localhost:4000",
       "environmentVariables": {
+        "CONN_STRING": "mongodb://localhost:27017",
+        "CONN_DATABASE": "VacinaVisualStudio",
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": "true",
+      "applicationUrl": "https://localhost:4001;http://localhost:4000"
     }
   }
 }

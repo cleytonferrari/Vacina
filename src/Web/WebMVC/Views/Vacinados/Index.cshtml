@@ -73,7 +73,7 @@
                                 <th class="cell" label="Data nascimento">Nascimento</th>
                                 <th class="cell">Residente em</th>
                                 <th class="cell">Grupo</th>
-                                <th class="cell">Dose - Lote - Data aplicação - Vacina</th>
+                                <th class="cell">Dose - Lote - Data aplicação - Vacina - Local</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -89,7 +89,11 @@
                                     <td class="cell">
                                         @foreach (var dose in item.Doses.OrderBy(x => x.NumeroDose))
                                         {
-                                            <span class="cell-data"><span class="badge bg-success">@dose.DescricaoDose</span> @dose.Lote - @dose.DataAplicacao.ToString("dd/MM/yy")</span><span class="note">@dose.Vacina.Nome</span>
+                                            <span class="cell-data">
+                                                <span class="badge bg-success">@dose.DescricaoDose</span> @dose.Lote - @dose.DataAplicacao.ToString("dd/MM/yy")
+                                            </span>
+                                            <span class="note">@dose.Vacina.Nome</span>
+                                            <span class="note">@dose.EstabelecimentoDeSaude.Nome</span>
                                         }
                                     </td>
 
