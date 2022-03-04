@@ -29,6 +29,7 @@
                                 <option value="" disabled selected>Dose</option>
                                 <option value="1">1ª Dose</option>
                                 <option value="2">2ª Dose</option>
+                                <option value="38">Reforço</option>
                                 <option value="8">Dose Única</option>
                             </select>
                         </div>
@@ -69,6 +70,7 @@
                         <thead>
                             <tr>
                                 <th class="cell">Nome</th>
+                                <th class="cell">CPF</th>
                                 <th class="cell">Sexo</th>
                                 <th class="cell" label="Data nascimento">Nascimento</th>
                                 <th class="cell">Residente em</th>
@@ -79,25 +81,26 @@
                         <tbody>
                             @foreach (var item in Model.Vacinados)
                             {
-                                <tr>
-                                    <td class="cell">@item.Pessoa.Nome</td>
-                                    <td class="cell">@item.Pessoa.Sexo</td>
-                                    <td class="cell">@item.Pessoa.DataNascimento.ToString("**/**/yyyy")</td>
-                                    <td class="cell">@item.Pessoa.Endereco?.Municipio / @item.Pessoa.Endereco?.UF</td>
-                                    <td class="cell">@item.GrupoDeAtendimento?.Nome</td>
+                            <tr>
+                                <td class="cell">@item.Pessoa.Nome</td>
+                                <td class="cell">@item.Pessoa.CPF.Substring(0, 3).***.***-**</td>
+                                <td class="cell">@item.Pessoa.Sexo</td>
+                                <td class="cell">@item.Pessoa.DataNascimento.ToString("**/**/yyyy")</td>
+                                <td class="cell">@item.Pessoa.Endereco?.Municipio / @item.Pessoa.Endereco?.UF</td>
+                                <td class="cell">@item.GrupoDeAtendimento?.Nome</td>
 
-                                    <td class="cell">
-                                        @foreach (var dose in item.Doses.OrderBy(x => x.NumeroDose))
-                                        {
-                                            <span class="cell-data">
-                                                <span class="badge bg-success">@dose.DescricaoDose</span> @dose.Lote - @dose.DataAplicacao.ToString("dd/MM/yy")
-                                            </span>
-                                            <span class="note">@dose.Vacina.Nome</span>
-                                            <span class="note">@dose.EstabelecimentoDeSaude.Nome</span>
-                                        }
-                                    </td>
+                                <td class="cell">
+                                    @foreach (var dose in item.Doses.OrderBy(x => x.NumeroDose))
+                                    {
+                                        <span class="cell-data">
+                                            <span class="badge bg-success">@dose.DescricaoDose</span> @dose.Lote - @dose.DataAplicacao.ToString("dd/MM/yy")
+                                        </span>
+                                        <span class="note">@dose.Vacina.Nome</span>
+                                        <span class="note">@dose.EstabelecimentoDeSaude.Nome</span>
+                                    }
+                                </td>
 
-                                </tr>
+                            </tr>
                             }
 
                         </tbody>
