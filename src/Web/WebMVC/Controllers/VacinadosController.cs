@@ -35,11 +35,14 @@ namespace WebMVC.Controllers
             
             if (!string.IsNullOrEmpty(grupo))
                 vacinados = vacinados.Where(x=>x.GrupoDeAtendimento.Nome.ToLower() == grupo.ToLower());
-
+            //mongo não esta aceitando ordenar pela dataVacinacao
+            //ai busco todos do banco e jogo em uma lista e ordeno BEM ERRADO E FEIO FAZER ISSO
+            //mas sem tempo pra investigar e ve o que ta acontecendo.   :)
+            var todos = vacinados.ToList();
             var viewModel = new IndexVacinadosViewModel
             {
                 GrupoDeAtendimento = _vacinadosRepositorio.GetGruposDeAtendimento().Result.ToList(),
-                Vacinados = vacinados.OrderBy(x => x.Pessoa.Nome).ToPagedList(pagina ?? 1, itensPorPagina)
+                Vacinados = todos.OrderByDescending(x => x.DataVacinacao).ToPagedList(pagina ?? 1, itensPorPagina)
             };
 
             return View(viewModel);
