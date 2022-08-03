@@ -29,8 +29,11 @@
                                 <option value="" disabled selected>Dose</option>
                                 <option value="1">1ª Dose</option>
                                 <option value="2">2ª Dose</option>
-                                <option value="38">Reforço</option>
                                 <option value="8">Dose Única</option>
+                                <option value="38">1ª Dose de Reforço</option>
+                                <option value="7">2ª Dose de Reforço</option>
+                                <option value="37">Dose Adicional</option>
+                                
                             </select>
                         </div>
                         <div class="col-4 col-lg-2 g-2">
@@ -82,10 +85,10 @@
                             @foreach (var item in Model.Vacinados)
                             {
                             <tr>
-                                <td class="cell">@item.Pessoa.Nome</td>
-                                <td class="cell">@item.Pessoa.CPF.Substring(0, 3).***.***-**</td>
+                                <td class="cell">@item.Pessoa.NomeAbreviado</td>
+                                <td class="cell">@item.Pessoa.CPFMask</td>
                                 <td class="cell">@item.Pessoa.Sexo</td>
-                                <td class="cell">@item.Pessoa.DataNascimento.ToString("**/**/yyyy")</td>
+                                <td class="cell">@item.Pessoa.DataNascimentoMask</td>
                                 <td class="cell">@item.Pessoa.Endereco?.Municipio / @item.Pessoa.Endereco?.UF</td>
                                 <td class="cell">@item.GrupoDeAtendimento?.Nome</td>
 

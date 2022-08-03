@@ -35,7 +35,7 @@ namespace MongoDb
 
         public Task<List<Vacinados>> GetPorNomeDaVacina(string nome)
         {
-            var data = _collection.AsQueryable().Where(x => x.Doses.Any(y=>y.Vacina.Nome.ToLower().Contains(nome.ToLower()))).ToListAsync();
+            var data = _collection.AsQueryable().Where(x => x.Doses.Any(y => y.Vacina.Nome.ToLower().Contains(nome.ToLower()))).ToListAsync();
             return data;
         }
 
@@ -44,6 +44,14 @@ namespace MongoDb
             var data = _collection.AsQueryable().Where(x => x.Doses.Any(y => y.NumeroDose.ToLower() == numeroDose.ToLower())).CountAsync();
             return data;
 
+        }
+
+        public Task<int> GetTotalDose()
+        {
+            var data = _collection.AsQueryable()
+                                  .Select(y => y.Doses.Count)
+                                  .SumAsync();
+            return data;
         }
     }
 }

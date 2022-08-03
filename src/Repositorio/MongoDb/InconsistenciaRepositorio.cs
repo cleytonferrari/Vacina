@@ -50,5 +50,23 @@ namespace MongoDb
             var data = _collection.AsQueryable().Where(x => x.Doses.Count == numeroRegistroNoBanco && x.Doses.Any(y => y.NumeroDose.ToLower() == numeroDose.ToLower())).CountAsync();
             return data;
         }
+
+
+
+        public Dictionary<string, string> GetDosesDiferentes()
+        {
+            var data = _collection.AsQueryable().ToListAsync();
+            var retorno = new Dictionary<string, string>();
+
+            foreach (var item in data.Result)
+                foreach (var dose in item.Doses)
+                {
+                    if (!retorno.ContainsKey(dose.NumeroDose))
+                        retorno.Add(dose.NumeroDose, dose.DescricaoDose);
+                }
+
+            return retorno;
+        }
+
     }
 }

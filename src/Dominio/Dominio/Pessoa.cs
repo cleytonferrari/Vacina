@@ -22,5 +22,21 @@ namespace Dominio
             }
         }
 
+        public string CPFMask
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(CPF) ? $"{CPF.Substring(0, 3)}.* **.* **-**" : string.Empty;
+            }
+        }
+
+        public string DataNascimentoMask
+        {
+            get
+            {
+                return DataNascimento.ToString("**/**/yyyy");
+            }
+        }
+
     }
 }

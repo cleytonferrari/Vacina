@@ -13,6 +13,8 @@ namespace Dominio.Repositorio
 
         Task<int> GetTotalDose(string numeroDose);
 
+        Task<int> GetTotalDose();
+       
         Task<List<Vacinados>> GetPorNomeDaVacina(string nome);
 
     }

@@ -23,5 +23,7 @@ namespace Dominio.Repositorio
 
         Task<int> GetTotalInconsistenciaNoNumeroDaDoseAplicada(int numeroRegistroNoBanco, string numeroDose);
 
+        Dictionary<string, string> GetDosesDiferentes();
+
     }
 }

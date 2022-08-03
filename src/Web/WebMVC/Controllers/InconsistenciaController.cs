@@ -37,7 +37,8 @@ namespace WebMVC.Controllers
             var viewModel = new IndexInconsistenciaViewModel
             {
                 TotalDosesDiferentesNoMesmoVacinado = tDosesDiferentesNoMesmoVacinado.Count,
-                TotalNoNumeroDaDoseAplicada = await tNoNumeroDaDoseAplicada
+                TotalNoNumeroDaDoseAplicada = await tNoNumeroDaDoseAplicada,
+                DosesDiferentes = _inconsistenciaRepositorio.GetDosesDiferentes()
             };
 
             return View(viewModel);
@@ -76,6 +77,7 @@ namespace WebMVC.Controllers
     {
         public int TotalDosesDiferentesNoMesmoVacinado { get; set; }
         public int TotalNoNumeroDaDoseAplicada { get; set; }
+        public Dictionary<string,string> DosesDiferentes { get; set; }
     }
 
     public class ListarInconsistenciaViewModel
