@@ -1,0 +1,34 @@
+https://{$URL_ALTOPARAISO}:443 { 
+  log { 
+    level INFO 
+    output file /data/accessVacinometroAltoParaiso.log { 
+      roll_size 10MB
+      roll_keep 10 
+    } 
+  } 
+ 
+  tls {$EMAIL_TLS} 
+  encode gzip 
+  reverse_proxy /notifications/hub vacinaapp_altoparaiso:3012 
+
+  reverse_proxy vacinaapp_altoparaiso:80 { 
+       header_up X-Real-IP {remote_host} 
+  } 
+}
+
+https://{$URL_MONTENEGRO}:443 { 
+  log { 
+    level INFO 
+    output file /data/accessVacinometroMonteNegro.log { 
+      roll_size 10MB
+      roll_keep 10 
+    } 
+  } 
+ 
+  tls {$EMAIL_TLS} 
+  encode gzip 
+  reverse_proxy /notifications/hub vacinaapp_montenegro:3012 
+  reverse_proxy vacinaapp_montenegro:80 { 
+       header_up X-Real-IP {remote_host} 
+  } 
+}

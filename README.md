@@ -77,7 +77,7 @@ docker-compose up -d
 *Pronto! Agora basta acessar o endereço local no seu servidor https://localhost ou o dominio configurado no arquivo do [CaddyFile](https://github.com/cleytonferrari/Vacina/blob/main/src/Caddyfile).*
 
 **Isto ira criar 3 containers do docker:**
-* mondodbvacina (servidor do MondoDb)
+* mongodbvacina (servidor do MondoDb)
 * appvacina (aplicativo Vacina)
 * caddy (proxy reverso para adicionar https ao servidor)
 

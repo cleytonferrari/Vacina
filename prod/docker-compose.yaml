@@ -1,0 +1,85 @@
+version: '3.8' #https://docs.docker.com/compose/compose-file/compose-versioning/
+
+services:            
+    vacinaapp_altoparaiso:
+        image: cleytonferrari/appvacina-arm64:latest
+        container_name: appvacina_altoparaiso
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 1G
+                reservations:
+                    memory: 512M
+        ports:
+            - 8080:80
+        depends_on: 
+            - 'mongodb'
+        networks:
+            - vacina-network
+        environment: 
+            - CONN_STRING=mongodb://mongodbvacina:27017
+            - CONN_DATABASE=VacinaAltoParaiso
+
+    vacinaapp_montenegro:
+        image: cleytonferrari/appvacina-arm64:latest
+        container_name: appvacina_montenegro
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 1G
+                reservations:
+                    memory: 512M
+        ports:
+            - 8081:80
+        depends_on: 
+            - 'mongodb'
+        networks:
+            - vacina-network
+        environment: 
+            - CONN_STRING=mongodb://mongodbvacina:27017
+            - CONN_DATABASE=VacinaMonteNegro
+
+    mongodb:
+        image: "mongo:4.4"
+        container_name: mongodbvacina
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 3G
+                reservations:
+                    memory: 1G
+        volumes:
+          - './mongodb-data:/data'
+        ports:
+          - '27017:27017'
+        networks:
+            - vacina-network
+    caddy: 
+        image: caddy:2 
+        container_name: caddy
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    memory: 256M
+                reservations:
+                    memory: 128M
+        depends_on: 
+            - 'vacinaapp_altoparaiso'
+            - 'vacinaapp_montenegro'
+        ports: 
+            - 80:80 
+            - 443:443 
+        volumes: 
+            - ./Caddyfile:/etc/caddy/Caddyfile:ro 
+            - ./caddy-config:/config 
+            - ./caddy-data:/data 
+        networks:
+            - vacina-network
+    
+networks:
+    vacina-network:
+        driver: bridge
